@@ -18,7 +18,7 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
 
   return (
     <aside
-      className="surface-dark fixed inset-y-0 left-0 z-40 flex h-screen w-72 shrink-0 flex-col bg-[var(--emerald)] transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
+      className={`surface-dark fixed inset-y-0 left-0 z-40 flex h-screen w-72 shrink-0 flex-col bg-[var(--emerald)] transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
         open ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
