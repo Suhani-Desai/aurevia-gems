@@ -116,9 +116,10 @@ export function PublicProductDetailPage() {
               to={`/contact?requirement=${encodeURIComponent(
                 `${product.name} (${product.sku})`,
               )}`}
-              className="btn-primary"
+              className="btn-enquiry"
             >
               Request an Enquiry
+              <span aria-hidden="true">→</span>
             </Link>
             <Link to="/collections" className="btn-ghost">
               Back to Collection
