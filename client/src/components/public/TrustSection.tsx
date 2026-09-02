@@ -1,3 +1,5 @@
+import { Line, SplitLines } from '../../motion/SplitLines';
+
 const points = [
   {
     n: '01',
@@ -27,13 +29,20 @@ export function TrustSection() {
       <div className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-28">
         <div className="mb-14 max-w-xl">
           <p className="eyebrow">Why Aurevia</p>
-          <h2 className="font-display mt-4 text-4xl md:text-5xl">
-            Built for jewellery businesses that value restraint and reliability.
-          </h2>
+          <SplitLines
+            as="h2"
+            className="font-display mt-4 text-4xl md:text-5xl"
+          >
+            <Line>Built for jewellery businesses</Line>
+            <Line>that value restraint and reliability.</Line>
+          </SplitLines>
         </div>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {points.map((point) => (
-            <article key={point.n} className="border-t border-[var(--champagne)]/50 pt-5">
+            <article
+              key={point.n}
+              className="border-t border-[var(--champagne)]/50 pt-5 transition duration-500 hover:-translate-y-1"
+            >
               <p className="text-[11px] tracking-[0.2em] text-[var(--champagne)]">
                 {point.n}
               </p>

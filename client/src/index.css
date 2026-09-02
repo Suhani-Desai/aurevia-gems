@@ -33,7 +33,47 @@ body,
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .media-zoom:hover img,
+  .rise-in,
+  .rise-in-delay {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+.nav-underline {
+  position: relative;
+}
+
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.2em;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: currentColor;
+  transition: transform 320ms ease;
+}
+
+.nav-underline:hover::after,
+.group:hover .nav-underline::after {
+  transform: scaleX(1);
+}
+
+.will-change-transform {
+  will-change: transform;
 }
 
 body {
