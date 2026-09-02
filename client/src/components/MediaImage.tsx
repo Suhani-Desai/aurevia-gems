@@ -6,6 +6,7 @@ type MediaImageProps = {
   className?: string;
   imgClassName?: string;
   fallback?: string;
+  soft?: boolean;
 };
 
 export function MediaImage({
@@ -14,11 +15,16 @@ export function MediaImage({
   className = '',
   imgClassName = 'h-full w-full object-cover',
   fallback = '/images/fallback.jpg',
+  soft = true,
 }: MediaImageProps) {
   const [current, setCurrent] = useState(src);
 
   return (
-    <div className={`overflow-hidden bg-[var(--pearl-deep)] ${className}`}>
+    <div
+      className={`overflow-hidden bg-[var(--pearl-deep)] ${
+        soft ? 'media-soft' : ''
+      } ${className}`}
+    >
       <img
         src={current}
         alt={alt}

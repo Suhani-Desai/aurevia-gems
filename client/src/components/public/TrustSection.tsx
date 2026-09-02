@@ -30,11 +30,11 @@ export function TrustSection() {
 
   return (
     <section ref={sectionRef} className="bg-[var(--surface)]">
-      <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
-        <div className="mb-16 max-w-2xl" data-reveal>
+      <div className="mx-auto max-w-[1440px] px-5 py-14 md:px-10 md:py-16">
+        <div className="mb-8 max-w-2xl" data-reveal>
           <p className="eyebrow">Why Aurevia</p>
-          <div className="gold-rule mt-5" />
-          <h2 className="font-display mt-6 text-4xl md:text-5xl">
+          <div className="gold-rule mt-4" />
+          <h2 className="font-display mt-5 text-3xl md:text-4xl">
             Built for jewellery businesses that value restraint and reliability.
           </h2>
         </div>

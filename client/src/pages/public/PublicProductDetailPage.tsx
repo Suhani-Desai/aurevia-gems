@@ -71,9 +71,9 @@ export function PublicProductDetailPage() {
         : 'Available for enquiry';
 
   return (
-    <section className="section-atmosphere pt-20">
-      <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-12 md:grid-cols-12 md:gap-12 md:px-10 md:py-20">
-        <div className="img-frame overflow-hidden md:col-span-7">
+    <section className="bg-[var(--pearl)] pt-20">
+      <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-10 md:grid-cols-12 md:gap-10 md:px-10 md:py-12">
+        <div className="overflow-hidden rounded-[1.35rem] md:col-span-7">
           <MediaImage
             src={getProductImage(product)}
             alt={product.name}

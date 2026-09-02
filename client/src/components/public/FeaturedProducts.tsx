@@ -30,15 +30,15 @@ export function FeaturedProducts({
 
   return (
     <section ref={sectionRef} className="section-atmosphere">
-      <div className="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
+      <div className="mx-auto max-w-[1440px] px-5 pt-14 md:px-10 md:pt-16">
         <div
-          className="mb-14 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between"
+          className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between"
           data-reveal
         >
           <div className="max-w-xl">
             <p className="eyebrow">Featured Collection</p>
-            <div className="gold-rule mt-5" />
-            <h2 className="font-display mt-6 text-4xl md:text-5xl lg:text-[3.5rem]">
+            <div className="gold-rule mt-4" />
+            <h2 className="font-display mt-5 text-3xl md:text-4xl lg:text-5xl">
               Selected for the discerning eye.
             </h2>
           </div>
@@ -52,19 +52,19 @@ export function FeaturedProducts({
       </div>
 
       {loading ? (
-        <p className="px-5 pb-24 text-sm text-[var(--muted)] md:px-10">
+        <p className="px-5 pb-14 text-sm text-[var(--muted)] md:px-10">
           Loading collection...
         </p>
       ) : error ? (
-        <p className="mx-5 mb-24 bg-[var(--white)]/70 px-5 py-8 text-sm text-[var(--muted)] md:mx-10">
+        <p className="mx-5 mb-14 bg-[var(--white)]/70 px-5 py-6 text-sm text-[var(--muted)] md:mx-10">
           {error}
         </p>
       ) : items.length === 0 ? (
-        <div className="mx-5 mb-24 px-5 py-16 text-center md:mx-10">
+        <div className="mx-5 mb-14 px-5 py-10 text-center md:mx-10">
           <h3 className="font-display text-3xl">Catalogue updating</h3>
         </div>
       ) : (
-        <div className="mx-auto grid max-w-[1440px] gap-x-6 gap-y-12 px-5 pb-24 sm:grid-cols-2 lg:grid-cols-12 md:px-10">
+        <div className="mx-auto grid max-w-[1440px] gap-x-5 gap-y-10 px-5 pb-14 sm:grid-cols-2 lg:grid-cols-12 md:px-10">
           {items.map((product, index) => {
             const span =
               index === 0

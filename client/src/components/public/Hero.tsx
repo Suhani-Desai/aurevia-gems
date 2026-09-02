@@ -76,6 +76,7 @@ export function Hero() {
           alt="Diamond jewellery composition for Aurevia Gems"
           className="absolute inset-0 h-full w-full"
           imgClassName="h-full w-full object-cover object-[center_30%] opacity-80"
+          soft={false}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[rgba(11,15,13,0.55)] via-[rgba(11,15,13,0.25)] to-[rgba(11,15,13,0.78)]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(13,47,40,0.55)] via-transparent to-transparent" />
@@ -106,8 +107,9 @@ export function Hero() {
             <Link to="/collections" className="btn-primary">
               Explore Collection
             </Link>
-            <Link to="/contact" className="btn-ghost btn-ghost-light">
+            <Link to="/contact" className="btn-enquiry btn-enquiry-light">
               Request an Enquiry
+              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>

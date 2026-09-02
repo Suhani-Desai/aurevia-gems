@@ -11,6 +11,8 @@ import { ProductFormPage } from './pages/ProductFormPage';
 import { ProductsPage } from './pages/ProductsPage';
 import { CollectionsPage } from './pages/public/CollectionsPage';
 import { ContactPage } from './pages/public/ContactPage';
+import { AboutPage } from './pages/public/AboutPage';
+import { MaterialsPage } from './pages/public/MaterialsPage';
 import { HomePage } from './pages/public/HomePage';
 import { PublicProductDetailPage } from './pages/public/PublicProductDetailPage';
 
@@ -22,6 +24,8 @@ export default function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/collections" element={<CollectionsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/materials" element={<MaterialsPage />} />
             <Route path="/product/:id" element={<PublicProductDetailPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Route>

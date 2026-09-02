@@ -89,8 +89,8 @@ export function EnquirySection({
       onSubmit={handleSubmit}
       noValidate
       className={`${
-        embedded ? '' : 'border border-[var(--border)] bg-[var(--white)]'
-      } grid gap-6 p-6 md:grid-cols-2 md:gap-8 md:p-10`}
+        embedded ? '' : 'rounded-[1.35rem] border border-[var(--border)] bg-[var(--white)] p-6 md:p-8'
+      } grid gap-5 md:grid-cols-2 md:gap-6`}
     >
       {(
         [

@@ -11,10 +11,24 @@ export function PublicLayout() {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     ScrollTrigger.getAll().forEach((t) => t.kill());
     ScrollTrigger.refresh();
-  }, [location.pathname]);
+
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      requestAnimationFrame(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+        window.scrollTo(0, 0);
+      });
+      return;
+    }
+
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
 
   return (
     <div className="public-site min-h-screen">
