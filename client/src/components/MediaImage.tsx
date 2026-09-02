@@ -18,7 +18,7 @@ export function MediaImage({
   const [current, setCurrent] = useState(src);
 
   return (
-    <div className={`overflow-hidden bg-[#1a1a1a] ${className}`}>
+    <div className={`overflow-hidden bg-[var(--pearl-deep)] ${className}`}>
       <img
         src={current}
         alt={alt}

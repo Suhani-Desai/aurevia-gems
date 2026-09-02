@@ -29,31 +29,29 @@ export function TrustSection() {
   useSafeReveal(sectionRef);
 
   return (
-    <section
-      ref={sectionRef}
-      className="border-b border-[var(--border)] bg-[var(--ivory)]"
-    >
-      <div className="mx-auto max-w-[1440px] px-5 py-20 md:px-10 md:py-28">
-        <div className="mb-14 max-w-xl" data-reveal>
+    <section ref={sectionRef} className="bg-[var(--surface)]">
+      <div className="mx-auto max-w-[1440px] px-5 py-24 md:px-10 md:py-32">
+        <div className="mb-16 max-w-2xl" data-reveal>
           <p className="eyebrow">Why Aurevia</p>
-          <h2 className="font-display mt-4 text-4xl md:text-5xl">
+          <div className="gold-rule mt-5" />
+          <h2 className="font-display mt-6 text-4xl md:text-5xl">
             Built for jewellery businesses that value restraint and reliability.
           </h2>
         </div>
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {points.map((point) => (
+        <div className="grid gap-0 md:grid-cols-2 lg:grid-cols-4">
+          {points.map((point, index) => (
             <article
               key={point.n}
               data-reveal
-              className="border-t border-[var(--champagne)]/50 pt-5 transition duration-500 hover:-translate-y-1"
+              className={`border-t border-[var(--gold)]/35 py-8 md:border-t-0 md:border-l md:border-[var(--gold)]/25 md:px-8 md:py-2 ${
+                index === 0 ? 'md:border-l-0 md:pl-0' : ''
+              }`}
             >
-              <p className="text-[11px] tracking-[0.2em] text-[var(--champagne)]">
-                {point.n}
-              </p>
-              <h3 className="mt-4 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--charcoal)]">
+              <p className="font-display text-4xl text-[var(--gold)]">{point.n}</p>
+              <h3 className="mt-6 text-sm font-medium uppercase tracking-[0.16em] text-[var(--ink)]">
                 {point.title}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">
+              <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
                 {point.description}
               </p>
             </article>

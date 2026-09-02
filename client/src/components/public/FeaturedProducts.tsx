@@ -10,6 +10,15 @@ type FeaturedProductsProps = {
   error?: string;
 };
 
+const layoutAspects = [
+  'wide',
+  'tall',
+  'portrait',
+  'landscape',
+  'portrait',
+  'tall',
+] as const;
+
 export function FeaturedProducts({
   products,
   loading,
@@ -20,21 +29,22 @@ export function FeaturedProducts({
   useSafeReveal(sectionRef);
 
   return (
-    <section ref={sectionRef} className="border-b border-[var(--border)]">
-      <div className="mx-auto max-w-[1440px] px-5 pt-20 md:px-10 md:pt-28">
+    <section ref={sectionRef} className="section-atmosphere">
+      <div className="mx-auto max-w-[1440px] px-5 pt-24 md:px-10 md:pt-32">
         <div
-          className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+          className="mb-14 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between"
           data-reveal
         >
           <div className="max-w-xl">
             <p className="eyebrow">Featured Collection</p>
-            <h2 className="font-display mt-4 text-4xl md:text-5xl">
+            <div className="gold-rule mt-5" />
+            <h2 className="font-display mt-6 text-4xl md:text-5xl lg:text-[3.5rem]">
               Selected for the discerning eye.
             </h2>
           </div>
           <Link
             to="/collections"
-            className="nav-underline text-[11px] uppercase tracking-[0.16em]"
+            className="nav-underline text-[11px] uppercase tracking-[0.18em]"
           >
             View all collections
           </Link>
@@ -42,24 +52,43 @@ export function FeaturedProducts({
       </div>
 
       {loading ? (
-        <p className="px-5 pb-20 text-sm text-[var(--muted)] md:px-10">
+        <p className="px-5 pb-24 text-sm text-[var(--muted)] md:px-10">
           Loading collection...
         </p>
       ) : error ? (
-        <p className="mx-5 mb-20 border border-[var(--border)] bg-[var(--white)] px-5 py-8 text-sm text-[var(--muted)] md:mx-10">
+        <p className="mx-5 mb-24 bg-[var(--white)]/70 px-5 py-8 text-sm text-[var(--muted)] md:mx-10">
           {error}
         </p>
       ) : items.length === 0 ? (
-        <div className="mx-5 mb-20 border border-dashed border-[var(--border)] px-5 py-16 text-center md:mx-10">
+        <div className="mx-5 mb-24 px-5 py-16 text-center md:mx-10">
           <h3 className="font-display text-3xl">Catalogue updating</h3>
         </div>
       ) : (
-        <div className="mx-auto grid max-w-[1440px] gap-5 px-5 pb-20 sm:grid-cols-2 xl:grid-cols-3 md:px-10">
-          {items.map((product, index) => (
-            <div key={product.id} data-reveal>
-              <ProductCard product={product} featured={index === 0} />
-            </div>
-          ))}
+        <div className="mx-auto grid max-w-[1440px] gap-x-6 gap-y-12 px-5 pb-24 sm:grid-cols-2 lg:grid-cols-12 md:px-10">
+          {items.map((product, index) => {
+            const span =
+              index === 0
+                ? 'lg:col-span-7'
+                : index === 1
+                  ? 'lg:col-span-5'
+                  : index === 2
+                    ? 'lg:col-span-4'
+                    : index === 3
+                      ? 'lg:col-span-8'
+                      : index === 4
+                        ? 'lg:col-span-5'
+                        : 'lg:col-span-7';
+
+            return (
+              <div key={product.id} className={span} data-reveal>
+                <ProductCard
+                  product={product}
+                  featured={false}
+                  aspect={layoutAspects[index] ?? 'portrait'}
+                />
+              </div>
+            );
+          })}
         </div>
       )}
     </section>

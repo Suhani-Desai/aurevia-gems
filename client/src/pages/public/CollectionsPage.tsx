@@ -8,6 +8,8 @@ import type { Category, Product } from '../../types';
 
 const materialOrder = ['Diamonds', 'Gold', 'Silver', 'Platinum'];
 
+const cardAspects = ['tall', 'portrait', 'wide', 'portrait', 'landscape', 'tall', 'portrait', 'wide'] as const;
+
 export function CollectionsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const material = searchParams.get('material') ?? 'All';
@@ -57,18 +59,19 @@ export function CollectionsPage() {
 
   return (
     <div>
-      <section className="border-b border-[var(--border)]">
-        <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">
+      <section className="section-atmosphere border-b border-[var(--border)]/60 pt-24">
+        <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-24">
           <p className="eyebrow">Collections</p>
-          <h1 className="font-display mt-4 max-w-3xl text-4xl md:text-6xl">
+          <div className="gold-rule mt-5" />
+          <h1 className="font-display mt-6 max-w-3xl text-4xl md:text-6xl lg:text-7xl">
             Materials selected for modern jewellery houses.
           </h1>
         </div>
       </section>
 
       <section className="bg-[var(--surface)]">
-        <div className="mx-auto max-w-[1440px] px-5 py-12 md:px-10 md:py-16">
-          <div className="mb-10 flex flex-wrap gap-2">
+        <div className="mx-auto max-w-[1440px] px-5 py-14 md:px-10 md:py-20">
+          <div className="mb-12 flex flex-wrap gap-x-6 gap-y-3 border-b border-[var(--border)] pb-6">
             {filters.map((item) => (
               <button
                 key={item}
@@ -76,10 +79,10 @@ export function CollectionsPage() {
                 onClick={() =>
                   setSearchParams(item === 'All' ? {} : { material: item })
                 }
-                className={`border px-4 py-2 text-[11px] uppercase tracking-[0.14em] transition duration-300 ${
+                className={`pb-1 text-[11px] uppercase tracking-[0.18em] transition ${
                   material === item
-                    ? 'border-[var(--forest)] bg-[var(--forest)] text-[var(--ivory)]'
-                    : 'border-[var(--border)] text-[var(--charcoal)] hover:border-[var(--charcoal)]'
+                    ? 'border-b border-[var(--gold)] text-[var(--ink)]'
+                    : 'text-[var(--muted)] hover:text-[var(--ink)]'
                 }`}
               >
                 {item}
@@ -90,23 +93,23 @@ export function CollectionsPage() {
           {loading ? (
             <p className="text-sm text-[var(--muted)]">Loading products...</p>
           ) : error ? (
-            <p className="border border-[var(--border)] bg-white px-5 py-8 text-sm text-[var(--muted)]">
+            <p className="bg-[var(--white)]/80 px-5 py-8 text-sm text-[var(--muted)]">
               {error}
             </p>
           ) : filtered.length === 0 ? (
-            <div className="border border-dashed border-[var(--border)] bg-white px-5 py-16 text-center">
+            <div className="px-5 py-16 text-center">
               <h2 className="font-display text-3xl">No pieces in this filter</h2>
               <p className="mt-3 text-sm text-[var(--muted)]">
                 Try another material or view the full collection.
               </p>
             </div>
           ) : (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((product, index) => (
                 <ProductCard
                   key={product.id}
                   product={product}
-                  featured={index === 0 && material === 'All'}
+                  aspect={cardAspects[index % cardAspects.length]}
                 />
               ))}
             </div>

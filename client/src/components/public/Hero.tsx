@@ -8,7 +8,7 @@ import { siteImages } from '../../utils/productVisual';
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
-  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const brandRef = useRef<HTMLParagraphElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const copyRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,7 @@ export function Hero() {
     if (!section || prefersReducedMotion()) return;
 
     const targets = [
-      eyebrowRef.current,
+      brandRef.current,
       headingRef.current,
       copyRef.current,
       ctaRef.current,
@@ -30,16 +30,13 @@ export function Hero() {
     }, 2500);
 
     const ctx = gsap.context(() => {
-      const image = imageWrapRef.current;
-
-      // Content is already visible in CSS. Enhance only — clearProps on finish.
-      if (image) {
+      if (imageWrapRef.current) {
         gsap.fromTo(
-          image,
+          imageWrapRef.current,
           { scale: 1.03 },
           {
             scale: 1,
-            duration: 1.35,
+            duration: 1.4,
             ease: 'power2.out',
             clearProps: 'transform',
           },
@@ -47,7 +44,7 @@ export function Hero() {
       }
 
       gsap.fromTo(
-        [eyebrowRef.current, headingRef.current, copyRef.current, ctaRef.current],
+        [brandRef.current, headingRef.current, copyRef.current, ctaRef.current],
         { opacity: 0, y: 20 },
         {
           opacity: 1,
@@ -56,7 +53,7 @@ export function Hero() {
           stagger: 0.12,
           ease: 'power2.out',
           clearProps: 'all',
-          delay: 0.15,
+          delay: 0.12,
         },
       );
     }, section);
@@ -71,42 +68,41 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[100svh] overflow-hidden bg-[var(--charcoal)] text-[var(--ivory)]"
+      className="relative min-h-[100svh] overflow-hidden bg-[var(--onyx)] text-[var(--pearl)]"
     >
-      <div ref={imageWrapRef} className="absolute inset-0" data-hero-image>
+      <div ref={imageWrapRef} className="absolute inset-0">
         <MediaImage
           src={siteImages.hero}
           alt="Diamond jewellery composition for Aurevia Gems"
           className="absolute inset-0 h-full w-full"
-          imgClassName="h-full w-full object-cover opacity-75"
+          imgClassName="h-full w-full object-cover object-[center_30%] opacity-80"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,40,33,0.82)] via-[rgba(15,40,33,0.42)] to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[rgba(11,15,13,0.55)] via-[rgba(11,15,13,0.25)] to-[rgba(11,15,13,0.78)]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(13,47,40,0.55)] via-transparent to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col justify-end px-5 pb-16 pt-28 md:justify-center md:px-10 md:pb-24">
-        <div className="max-w-xl">
+      <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col justify-end px-5 pb-16 pt-28 md:justify-end md:px-10 md:pb-24 lg:pb-28">
+        <div className="max-w-3xl">
           <p
-            ref={eyebrowRef}
-            className="eyebrow text-[var(--champagne)]"
+            ref={brandRef}
+            className="font-display text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] text-[var(--pearl)]"
           >
-            Fine Diamonds &amp; Jewellery for Global Trade
+            Aurevia Gems
           </p>
           <h1
             ref={headingRef}
-            className="font-display mt-5 text-5xl text-[var(--ivory)] md:text-6xl lg:text-7xl"
+            className="mt-6 max-w-xl text-lg font-light leading-8 text-[rgba(242,244,242,0.82)] md:text-xl md:leading-9"
           >
-            Exceptional stones.
-            <br />
-            Endless possibilities.
+            Exceptional stones. Endless possibilities.
           </h1>
           <p
             ref={copyRef}
-            className="mt-6 max-w-md text-sm leading-7 text-[rgba(246,241,231,0.78)] md:text-base"
+            className="mt-5 max-w-md text-sm leading-7 text-[rgba(242,244,242,0.68)]"
           >
             Premium diamonds and fine jewellery materials for brands, retailers
             and creators worldwide.
           </p>
-          <div ref={ctaRef} className="mt-8 flex flex-wrap gap-3">
+          <div ref={ctaRef} className="mt-10 flex flex-wrap gap-3">
             <Link to="/collections" className="btn-primary">
               Explore Collection
             </Link>
@@ -116,11 +112,11 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-16 flex items-center gap-3 md:absolute md:bottom-10 md:left-10 md:mt-0">
-          <div className="scroll-hint" aria-hidden="true" />
-          <span className="text-[10px] uppercase tracking-[0.22em] text-[rgba(246,241,231,0.55)]">
+        <div className="mt-16 flex items-center gap-3 md:absolute md:bottom-10 md:right-10 md:mt-0">
+          <span className="text-[10px] uppercase tracking-[0.28em] text-[rgba(242,244,242,0.5)]">
             Scroll
           </span>
+          <div className="scroll-hint" aria-hidden="true" />
         </div>
       </div>
     </section>

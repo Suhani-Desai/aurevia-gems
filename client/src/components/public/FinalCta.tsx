@@ -9,17 +9,26 @@ export function FinalCta() {
   return (
     <section
       ref={sectionRef}
-      className="border-b border-[var(--border)] bg-[var(--surface)]"
+      className="relative overflow-hidden bg-[var(--pearl)]"
     >
-      <div className="mx-auto flex max-w-[1440px] flex-col items-start gap-8 px-5 py-20 md:flex-row md:items-end md:justify-between md:px-10 md:py-28">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(184,151,90,0.14), transparent 70%), radial-gradient(ellipse 40% 40% at 0% 0%, rgba(13,47,40,0.08), transparent 60%)',
+        }}
+      />
+      <div className="relative mx-auto flex max-w-[1440px] flex-col items-start gap-10 px-5 py-24 md:flex-row md:items-end md:justify-between md:px-10 md:py-36">
         <div className="max-w-2xl" data-reveal>
           <p className="eyebrow">Business Enquiry</p>
-          <h2 className="font-display mt-4 text-4xl md:text-5xl">
+          <div className="gold-rule mt-5" />
+          <h2 className="font-display mt-6 text-4xl md:text-5xl lg:text-6xl">
             Building your next
-            <br />
-            collection?
+            <span className="block italic text-[var(--emerald-mid)]">
+              collection?
+            </span>
           </h2>
-          <p className="mt-5 max-w-xl text-sm leading-7 text-[var(--muted)] md:text-base">
+          <p className="mt-6 max-w-xl text-[0.95rem] leading-8 text-[var(--muted)]">
             Tell us what you&apos;re sourcing. We&apos;ll help you find the right
             materials and pieces for your business.
           </p>

@@ -9,20 +9,29 @@ import { MediaImage } from '../MediaImage';
 type ProductCardProps = {
   product: Product;
   featured?: boolean;
+  aspect?: 'portrait' | 'landscape' | 'tall' | 'wide';
 };
 
-export function ProductCard({ product, featured = false }: ProductCardProps) {
+const aspectClass = {
+  portrait: 'aspect-[4/5]',
+  landscape: 'aspect-[16/10]',
+  tall: 'aspect-[3/4]',
+  wide: 'aspect-[5/3]',
+};
+
+export function ProductCard({
+  product,
+  featured = false,
+  aspect,
+}: ProductCardProps) {
+  const resolvedAspect =
+    aspect ?? (featured ? 'landscape' : 'portrait');
+
   return (
-    <article
-      className={`group relative border border-[var(--border)] bg-[var(--white)] transition duration-500 hover:border-[var(--charcoal)] ${
-        featured ? 'md:col-span-2' : ''
-      }`}
-    >
+    <article className={`group relative ${featured ? 'md:col-span-2' : ''}`}>
       <Link to={`/product/${product.id}`} className="block">
         <div
-          className={`relative overflow-hidden ${
-            featured ? 'aspect-[16/10]' : 'aspect-[4/5]'
-          }`}
+          className={`img-frame relative overflow-hidden bg-[var(--pearl-deep)] ${aspectClass[resolvedAspect]}`}
         >
           <MediaImage
             src={getProductImage(product)}
@@ -30,23 +39,27 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
             className="h-full w-full"
             imgClassName="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
           />
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition duration-400 group-hover:opacity-100 max-md:hidden">
-            <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--ivory)]/70 bg-[rgba(20,52,43,0.45)] text-[10px] uppercase tracking-[0.16em] text-[var(--ivory)] backdrop-blur-sm">
-              View ↗
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[rgba(11,15,13,0.35)] via-transparent to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-between p-5 opacity-0 transition duration-500 group-hover:opacity-100 max-md:hidden">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--pearl)]">
+              View piece
+            </span>
+            <span className="text-[10px] tracking-[0.2em] text-[var(--gold-soft)]">
+              →
             </span>
           </div>
         </div>
-        <div className="space-y-3 p-5 md:p-6">
-          <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--champagne)]">
+        <div className="space-y-2 pt-5">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--gold)]">
             {product.category.name}
           </p>
-          <h3 className="font-display text-2xl text-[var(--charcoal)] md:text-3xl">
+          <h3 className="font-display text-2xl text-[var(--ink)] md:text-[1.85rem]">
             {product.name}
           </h3>
-          <p className="text-sm leading-6 text-[var(--muted)]">
+          <p className="max-w-md text-sm leading-7 text-[var(--muted)]">
             {getProductDescription(product)}
           </p>
-          <span className="nav-underline inline-block pt-2 text-[11px] uppercase tracking-[0.16em] text-[var(--charcoal)]">
+          <span className="nav-underline inline-block pt-2 text-[11px] uppercase tracking-[0.16em] text-[var(--ink)]">
             View Details
           </span>
         </div>

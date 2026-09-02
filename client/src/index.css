@@ -1,25 +1,33 @@
 @import "tailwindcss";
 
 :root {
-  --forest: #14342b;
-  --forest-deep: #0f2821;
-  --ivory: #f6f1e7;
-  --champagne: #c6a15b;
-  --charcoal: #171a17;
-  --muted: #6f756f;
-  --surface: #fbf9f4;
-  --border: #ddd6c8;
+  /* Jewel nocturne — cool pearl, deep emerald, soft gold */
+  --onyx: #0b0f0d;
+  --emerald: #0d2f28;
+  --emerald-mid: #164038;
+  --pearl: #f2f4f2;
+  --pearl-deep: #e6ebe8;
+  --gold: #b8975a;
+  --gold-soft: #d4bc8a;
+  --ink: #141816;
+  --muted: #66706a;
+  --border: #d2dbd5;
   --white: #ffffff;
   --danger: #9f1239;
   --warning: #92610a;
   --success: #1f5c45;
 
-  /* Admin aliases mapped to brand */
-  --ink: var(--charcoal);
-  --accent: var(--forest);
-  --accent-hover: var(--forest-deep);
+  /* Legacy aliases used across the app */
+  --forest: var(--emerald);
+  --forest-deep: var(--onyx);
+  --ivory: var(--pearl);
+  --champagne: var(--gold);
+  --charcoal: var(--ink);
+  --surface: #f7f9f7;
+  --accent: var(--emerald);
+  --accent-hover: var(--emerald-mid);
   --panel: var(--white);
-  --shadow: 0 1px 2px rgba(23, 26, 23, 0.04), 0 12px 32px rgba(23, 26, 23, 0.05);
+  --shadow: 0 1px 2px rgba(11, 15, 13, 0.04), 0 18px 48px rgba(11, 15, 13, 0.06);
 }
 
 * {
@@ -50,37 +58,16 @@ html {
   }
 }
 
-.nav-underline {
-  position: relative;
-}
-
-.nav-underline::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -0.2em;
-  width: 100%;
-  height: 1px;
-  transform: scaleX(0);
-  transform-origin: left;
-  background: currentColor;
-  transition: transform 320ms ease;
-}
-
-.nav-underline:hover::after,
-.group:hover .nav-underline::after {
-  transform: scaleX(1);
-}
-
-.will-change-transform {
-  will-change: transform;
-}
-
 body {
   margin: 0;
-  color: var(--charcoal);
-  background: var(--ivory);
-  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(184, 151, 90, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(13, 47, 40, 0.06), transparent 50%),
+    var(--pearl);
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 button,
@@ -96,83 +83,149 @@ a {
 }
 
 .font-display {
-  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  font-weight: 560;
-  letter-spacing: -0.02em;
-  line-height: 1.15;
+  font-family: "Bodoni Moda", "Times New Roman", serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  font-optical-sizing: auto;
 }
 
 .eyebrow {
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--champagne);
+  color: var(--gold);
 }
 
 .public-site {
-  background: var(--ivory);
-  color: var(--charcoal);
+  background: transparent;
+  color: var(--ink);
 }
 
 .admin-shell {
   background: var(--surface);
-  color: var(--charcoal);
+  color: var(--ink);
+}
+
+.nav-underline {
+  position: relative;
+}
+
+.nav-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.25em;
+  width: 100%;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: currentColor;
+  transition: transform 360ms ease;
+}
+
+.nav-underline:hover::after,
+.group:hover .nav-underline::after {
+  transform: scaleX(1);
 }
 
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--forest);
-  color: var(--ivory);
-  padding: 0.85rem 1.35rem;
+  background: var(--emerald);
+  color: var(--pearl);
+  padding: 0.95rem 1.55rem;
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+  transition: background 220ms ease, transform 220ms ease, box-shadow 220ms ease;
 }
 
 .btn-primary:hover {
-  background: var(--forest-deep);
+  background: var(--onyx);
+  box-shadow: 0 12px 30px rgba(11, 15, 13, 0.18);
 }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--charcoal);
-  color: var(--charcoal);
-  padding: 0.85rem 1.35rem;
+  border: 1px solid rgba(20, 24, 22, 0.35);
+  color: var(--ink);
+  padding: 0.95rem 1.55rem;
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: background 180ms ease, color 180ms ease;
+  transition: background 220ms ease, color 220ms ease, border-color 220ms ease;
 }
 
 .btn-ghost:hover {
-  background: var(--charcoal);
-  color: var(--ivory);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--pearl);
 }
 
 .btn-ghost-light {
-  border-color: rgba(246, 241, 231, 0.55);
-  color: var(--ivory);
+  border-color: rgba(242, 244, 242, 0.45);
+  color: var(--pearl);
 }
 
 .btn-ghost-light:hover {
-  background: var(--ivory);
-  color: var(--forest);
+  background: var(--pearl);
+  border-color: var(--pearl);
+  color: var(--emerald);
 }
 
 .media-zoom img {
-  transition: transform 700ms ease;
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .media-zoom:hover img {
-  transform: scale(1.03);
+  transform: scale(1.04);
+}
+
+.section-atmosphere {
+  position: relative;
+  isolation: isolate;
+}
+
+.section-atmosphere::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 55% at 80% 20%, rgba(184, 151, 90, 0.1), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 0% 90%, rgba(13, 47, 40, 0.07), transparent 55%);
+  pointer-events: none;
+}
+
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.55;
+}
+
+.gold-rule {
+  width: 3.5rem;
+  height: 1px;
+  background: var(--gold);
+}
+
+.img-frame {
+  position: relative;
+}
+
+.img-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
 }
 
 @keyframes riseIn {
@@ -206,8 +259,8 @@ a {
 
 .scroll-hint {
   width: 1px;
-  height: 42px;
-  background: linear-gradient(to bottom, var(--champagne), transparent);
+  height: 48px;
+  background: linear-gradient(to bottom, var(--gold-soft), transparent);
 }
 
 .admin-metric {
@@ -248,12 +301,12 @@ a {
 
 .chart-bar {
   height: 8px;
-  background: rgba(20, 52, 43, 0.12);
+  background: rgba(13, 47, 40, 0.12);
   overflow: hidden;
 }
 
 .chart-bar > span {
   display: block;
   height: 100%;
-  background: var(--forest);
+  background: var(--emerald);
 }
