@@ -18,28 +18,28 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col bg-[var(--forest)] text-[var(--ivory)] transition-transform duration-200 lg:static lg:translate-x-0 ${
+      className={`fixed inset-y-0 left-0 z-40 flex h-screen w-72 shrink-0 flex-col bg-[var(--emerald)] text-white transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0 ${
         open ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
-      <div className="border-b border-white/10 px-6 py-7">
-        <p className="text-[11px] tracking-[0.28em]">AUREVIA GEMS</p>
-        <p className="mt-3 text-[11px] uppercase tracking-[0.16em] text-[var(--champagne)]">
+      <div className="shrink-0 border-b border-white/10 px-6 py-6">
+        <p className="text-[11px] tracking-[0.28em] text-white">AUREVIA GEMS</p>
+        <p className="mt-3 text-[11px] uppercase tracking-[0.16em] text-[var(--gold-soft)]">
           Inventory Suite
         </p>
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 py-5">
+      <nav className="min-h-0 flex-1 space-y-1 overflow-y-auto px-3 py-5">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             onClick={onNavigate}
             className={({ isActive }) =>
-              `block rounded-sm px-3 py-2.5 text-sm tracking-[0.04em] transition ${
+              `block rounded-[0.85rem] px-3 py-2.5 text-sm tracking-[0.04em] transition ${
                 isActive
-                  ? 'bg-[rgba(246,241,231,0.12)] text-[var(--ivory)]'
-                  : 'text-[rgba(246,241,231,0.68)] hover:bg-white/5 hover:text-[var(--ivory)]'
+                  ? 'bg-white/15 text-white'
+                  : 'text-white/70 hover:bg-white/5 hover:text-white'
               }`
             }
           >
@@ -48,16 +48,10 @@ export function Sidebar({ open, onNavigate }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="border-t border-white/10 px-5 py-5">
-        <p className="truncate text-sm font-medium">{user?.name}</p>
-        <p className="truncate text-xs text-[rgba(246,241,231,0.55)]">
-          {user?.email}
-        </p>
-        <button
-          type="button"
-          onClick={logout}
-          className="mt-4 w-full border border-[rgba(246,241,231,0.28)] px-3 py-2 text-[11px] uppercase tracking-[0.14em] text-[var(--ivory)] transition hover:bg-[var(--ivory)] hover:text-[var(--forest)]"
-        >
+      <div className="shrink-0 border-t border-white/10 px-5 py-5">
+        <p className="truncate text-sm font-medium text-white">{user?.name}</p>
+        <p className="truncate text-xs text-white/55">{user?.email}</p>
+        <button type="button" onClick={logout} className="btn-ghost btn-ghost-light mt-4 w-full">
           Logout
         </button>
       </div>

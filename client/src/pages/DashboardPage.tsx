@@ -117,7 +117,7 @@ export function DashboardPage() {
       </section>
 
       <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="border border-[var(--border)] bg-[var(--white)] p-5 md:p-6">
+        <div className="rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-5 md:p-6">
           <h2 className="text-sm font-semibold uppercase tracking-[0.14em]">
             Inventory by category
           </h2>
@@ -167,7 +167,7 @@ export function DashboardPage() {
               {lowStock.slice(0, 5).map((product) => (
                 <div
                   key={product.id}
-                  className="flex items-center gap-4 border border-[var(--border)] bg-[var(--white)] p-3"
+                  className="flex items-center gap-4 rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-3"
                 >
                   <MediaImage
                     src={getProductImage(product)}

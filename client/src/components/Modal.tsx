@@ -54,7 +54,7 @@ export function Modal({
       >
         <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-4">
           <h2 className="text-lg font-semibold text-stone-900">{title}</h2>
-          <Button variant="ghost" size="sm" onClick={onClose}>
+          <Button variant="ghost" onClick={onClose}>
             Close
           </Button>
         </div>

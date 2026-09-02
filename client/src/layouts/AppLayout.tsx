@@ -25,7 +25,7 @@ export function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="admin-shell min-h-screen lg:flex">
+    <div className="admin-shell min-h-screen lg:flex lg:items-start">
       {sidebarOpen ? (
         <button
           type="button"
@@ -38,26 +38,26 @@ export function AppLayout() {
       <Sidebar open={sidebarOpen} onNavigate={() => setSidebarOpen(false)} />
 
       <div className="flex min-h-screen min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-[var(--border)] bg-[rgba(251,249,244,0.92)] px-4 py-3 backdrop-blur md:px-8">
+        <header className="sticky top-0 z-20 flex items-center justify-between border-b border-[var(--border)] bg-[rgba(247,249,247,0.96)] px-4 py-3 backdrop-blur md:px-8">
           <div className="flex items-center gap-3">
             <button
               type="button"
-              className="border border-[var(--border)] px-3 py-2 text-[11px] uppercase tracking-[0.14em] lg:hidden"
+              className="btn-ghost lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
               Menu
             </button>
             <div>
-              <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--champagne)]">
+              <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--gold)]">
                 Aurevia Gems
               </p>
-              <h2 className="text-sm font-medium text-[var(--charcoal)]">
+              <h2 className="text-sm font-medium text-[var(--ink)]">
                 {resolveTitle(location.pathname)}
               </h2>
             </div>
           </div>
           <div className="hidden text-right sm:block">
-            <p className="text-sm text-[var(--charcoal)]">{user?.name}</p>
+            <p className="text-sm text-[var(--ink)]">{user?.name}</p>
             <p className="text-xs text-[var(--muted)]">{user?.email}</p>
           </div>
         </header>

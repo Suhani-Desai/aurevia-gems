@@ -150,7 +150,7 @@ export function InventoryPage() {
       {success ? <Alert tone="success">{success}</Alert> : null}
       {error ? <Alert>{error}</Alert> : null}
 
-      <section className="border border-[var(--border)] bg-[var(--white)] p-5 md:p-6">
+      <section className="rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-5 md:p-6">
         <div className="flex gap-2">
           {(['STOCK_IN', 'STOCK_OUT'] as const).map((item) => (
             <button
@@ -189,7 +189,7 @@ export function InventoryPage() {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
           />
-          <div className="rounded-sm border border-[var(--border)] bg-[var(--surface)] px-3 py-2">
+          <div className="rounded-[0.85rem] border border-[var(--border)] bg-[var(--surface)] px-3 py-2">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">
               Resulting stock
             </p>
@@ -239,7 +239,7 @@ export function InventoryPage() {
         <h2 className="text-sm font-semibold uppercase tracking-[0.14em]">
           Transaction History
         </h2>
-        <div className="grid gap-3 border border-[var(--border)] bg-[var(--white)] p-4 md:grid-cols-2">
+        <div className="grid gap-3 rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-4 md:grid-cols-2">
           <Select
             label="Product"
             name="filterProductId"

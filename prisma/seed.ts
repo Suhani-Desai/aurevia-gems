@@ -30,6 +30,7 @@ const categories = [
   },
 ];
 
+/** Same catalogue as the public website — one name per piece. */
 const products = [
   {
     sku: 'AG-DM-AURELIA',
@@ -50,33 +51,6 @@ const products = [
     minimumStock: 4,
   },
   {
-    sku: 'AG-GD-VERONA',
-    name: 'Verona Gold Solitaire',
-    categoryName: 'Gold',
-    purchasePrice: 26500,
-    sellingPrice: 34800,
-    currentStock: 22,
-    minimumStock: 8,
-  },
-  {
-    sku: 'AG-SV-NOIR',
-    name: 'Noir Silver Halo Pendant',
-    categoryName: 'Silver',
-    purchasePrice: 4200,
-    sellingPrice: 6900,
-    currentStock: 40,
-    minimumStock: 12,
-  },
-  {
-    sku: 'AG-PT-ELAN',
-    name: 'Élan Platinum Band',
-    categoryName: 'Platinum',
-    purchasePrice: 31000,
-    sellingPrice: 41500,
-    currentStock: 9,
-    minimumStock: 5,
-  },
-  {
     sku: 'AG-DM-LUMIERE',
     name: 'Lumière Diamond Studs',
     categoryName: 'Diamonds',
@@ -84,6 +58,15 @@ const products = [
     sellingPrice: 24900,
     currentStock: 14,
     minimumStock: 6,
+  },
+  {
+    sku: 'AG-GD-VERONA',
+    name: 'Verona Gold Solitaire',
+    categoryName: 'Gold',
+    purchasePrice: 26500,
+    sellingPrice: 34800,
+    currentStock: 22,
+    minimumStock: 8,
   },
   {
     sku: 'AG-GD-SOLENNE',
@@ -95,6 +78,15 @@ const products = [
     minimumStock: 7,
   },
   {
+    sku: 'AG-SV-NOIR',
+    name: 'Noir Silver Halo Pendant',
+    categoryName: 'Silver',
+    purchasePrice: 4200,
+    sellingPrice: 6900,
+    currentStock: 40,
+    minimumStock: 12,
+  },
+  {
     sku: 'AG-SV-ARGENT',
     name: 'Argent Silver Signet',
     categoryName: 'Silver',
@@ -102,6 +94,15 @@ const products = [
     sellingPrice: 4600,
     currentStock: 3,
     minimumStock: 8,
+  },
+  {
+    sku: 'AG-PT-ELAN',
+    name: 'Élan Platinum Band',
+    categoryName: 'Platinum',
+    purchasePrice: 31000,
+    sellingPrice: 41500,
+    currentStock: 9,
+    minimumStock: 5,
   },
 ];
 
@@ -135,6 +136,8 @@ async function main() {
     categoryIds[category.name] = saved.id;
   }
 
+  const keepSkus = products.map((product) => product.sku);
+
   for (const product of products) {
     await prisma.product.upsert({
       where: { sku: product.sku },
@@ -158,8 +161,17 @@ async function main() {
     });
   }
 
+  // Keep admin catalogue identical to the public website.
+  await prisma.inventoryTransaction.deleteMany({
+    where: { product: { sku: { notIn: keepSkus } } },
+  });
+  const removed = await prisma.product.deleteMany({
+    where: { sku: { notIn: keepSkus } },
+  });
+
   console.log(
-    `Seed completed: admin + ${categories.length} categories + ${products.length} products`,
+    `Seed completed: admin + ${categories.length} categories + ${products.length} products` +
+      (removed.count ? ` (removed ${removed.count} extra products)` : ''),
   );
 }
 

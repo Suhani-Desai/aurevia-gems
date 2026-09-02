@@ -2,6 +2,7 @@ import type { Product } from '../types';
 
 const FALLBACK = '/images/fallback.jpg';
 
+/** One unique image per SKU — never reuse the same photo under different names. */
 const skuImageMap: Record<string, string> = {
   'AG-DM-AURELIA': '/images/product-aurelia.jpg',
   'AG-DM-CELESTE': '/images/product-celeste.jpg',

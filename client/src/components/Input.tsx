@@ -21,7 +21,7 @@ export function Input({
       <span className="text-sm font-medium text-stone-700">{label}</span>
       <input
         id={inputId}
-        className={`w-full rounded-md border bg-white px-3 py-2 text-sm outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[rgba(31,61,58,0.12)] ${
+        className={`w-full rounded-[0.85rem] border bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[var(--accent)] focus:ring-2 focus:ring-[rgba(31,61,58,0.12)] ${
           error ? 'border-[var(--danger)]' : 'border-[var(--border)]'
         } ${className}`}
         {...props}

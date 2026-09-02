@@ -137,7 +137,7 @@ export function ProductsPage() {
         </div>
       </div>
 
-      <div className="grid gap-3 border border-[var(--border)] bg-[var(--white)] p-4 md:grid-cols-4">
+      <div className="grid gap-3 rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-4 md:grid-cols-4">
         <Input
           label="Search"
           name="search"
