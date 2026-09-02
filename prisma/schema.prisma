@@ -18,6 +18,12 @@ enum InventoryTransactionType {
   ADJUSTMENT
 }
 
+enum EnquiryStatus {
+  NEW
+  REVIEWED
+  CLOSED
+}
+
 model User {
   id           String   @id @default(cuid())
   name         String
@@ -74,4 +80,21 @@ model InventoryTransaction {
   @@index([type])
   @@index([createdAt])
   @@map("inventory_transactions")
+}
+
+model Enquiry {
+  id          String        @id @default(cuid())
+  name        String
+  company     String
+  email       String
+  phone       String
+  requirement String
+  message     String
+  status      EnquiryStatus @default(NEW)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("enquiries")
 }

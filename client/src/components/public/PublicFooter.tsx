@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { siteContact } from '../../utils/siteContact';
 
 export function PublicFooter() {
   return (
@@ -32,24 +33,34 @@ export function PublicFooter() {
           <p className="eyebrow">Contact</p>
           <div className="mt-4 space-y-3 text-sm">
             <a
-              href="mailto:trade@aureviagems.com"
+              href={`mailto:${siteContact.email}`}
               className="block"
               style={{ color: '#ffffff' }}
             >
-              trade@aureviagems.com
+              {siteContact.email}
             </a>
             <a
-              href="tel:+442079460123"
+              href={siteContact.phoneHref}
               className="block"
               style={{ color: '#ffffff' }}
             >
-              +44 20 7946 0123
+              {siteContact.phoneDisplay}
             </a>
             <div className="flex gap-5 pt-1">
-              <a href="https://www.linkedin.com" style={{ color: '#ffffff' }}>
+              <a
+                href={siteContact.linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ffffff' }}
+              >
                 LinkedIn
               </a>
-              <a href="https://www.instagram.com" style={{ color: '#ffffff' }}>
+              <a
+                href={siteContact.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ffffff' }}
+              >
                 Instagram
               </a>
             </div>

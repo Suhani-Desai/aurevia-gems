@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { EnquirySection } from '../../components/public/EnquirySection';
 import { MediaImage } from '../../components/MediaImage';
 import { siteImages } from '../../utils/productVisual';
+import { siteContact } from '../../utils/siteContact';
 
 const topics = [
   'Diamond assortment planning',
@@ -41,18 +42,18 @@ export function ContactPage() {
                   Email
                 </p>
                 <a
-                  href="mailto:trade@aureviagems.com"
+                  href={`mailto:${siteContact.email}`}
                   className="mt-2 block text-sm"
                 >
-                  trade@aureviagems.com
+                  {siteContact.email}
                 </a>
               </div>
               <div className="rounded-[1rem] bg-white/5 p-4">
                 <p className="text-[10px] uppercase tracking-[0.18em] text-[var(--gold-soft)]">
                   Phone
                 </p>
-                <a href="tel:+442079460123" className="mt-2 block text-sm">
-                  +44 20 7946 0123
+                <a href={siteContact.phoneHref} className="mt-2 block text-sm">
+                  {siteContact.phoneDisplay}
                 </a>
               </div>
               <div className="rounded-[1rem] bg-white/5 p-4">
@@ -60,7 +61,7 @@ export function ContactPage() {
                   Hours
                 </p>
                 <p className="mt-2 text-sm text-[rgba(242,244,242,0.75)]">
-                  Mon–Fri, 09:00–18:00 GMT
+                  {siteContact.hours}
                 </p>
               </div>
             </div>

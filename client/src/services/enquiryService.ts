@@ -1,3 +1,6 @@
+import { apiRequest } from './api';
+import type { Enquiry, EnquiryStatus } from '../types';
+
 export type EnquiryInput = {
   name: string;
   company: string;
@@ -7,10 +10,23 @@ export type EnquiryInput = {
   message: string;
 };
 
-/**
- * Placeholder service for future enquiry API integration.
- * Currently validates and resolves locally without persistence.
- */
 export async function submitEnquiry(input: EnquiryInput): Promise<void> {
-  await Promise.resolve(input);
+  await apiRequest<{ enquiry: Enquiry }>('/enquiries', {
+    method: 'POST',
+    body: input,
+    auth: false,
+  });
+}
+
+export async function listEnquiries() {
+  const data = await apiRequest<{ enquiries: Enquiry[] }>('/enquiries');
+  return data.enquiries;
+}
+
+export async function updateEnquiryStatus(id: string, status: EnquiryStatus) {
+  const data = await apiRequest<{ enquiry: Enquiry }>(`/enquiries/${id}/status`, {
+    method: 'PATCH',
+    body: { status },
+  });
+  return data.enquiry;
 }

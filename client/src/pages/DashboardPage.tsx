@@ -81,6 +81,10 @@ export function DashboardPage() {
     { label: 'Total Stock', value: formatNumber(summary.totalStockUnits) },
     { label: 'Low Stock', value: formatNumber(summary.lowStockCount) },
     {
+      label: 'New Enquiries',
+      value: formatNumber(summary.newEnquiryCount),
+    },
+    {
       label: 'Inventory Value',
       value: formatCurrency(summary.inventoryValue),
     },
@@ -98,12 +102,17 @@ export function DashboardPage() {
             Inventory overview across Aurevia Gems.
           </p>
         </div>
-        <Link to="/inventory" className="btn-primary">
-          Manage inventory
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link to="/enquiries" className="btn-ghost">
+            View enquiries
+          </Link>
+          <Link to="/inventory" className="btn-primary">
+            Manage inventory
+          </Link>
+        </div>
       </div>
 
-      <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-5">
+      <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {metrics.map((metric) => (
           <div key={metric.label} className="admin-metric">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">

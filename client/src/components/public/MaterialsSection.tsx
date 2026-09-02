@@ -77,7 +77,7 @@ export function MaterialsSection() {
                 alt={`${item.name} material`}
                 className="absolute inset-0 h-full w-full media-zoom !rounded-none"
                 soft={false}
-                imgClassName="h-full w-full object-cover transition duration-700 group-hover:scale-[1.04]"
+                imgClassName="h-full w-full object-cover object-center transition duration-700 group-hover:scale-[1.04]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[rgba(11,15,13,0.92)] via-[rgba(11,15,13,0.25)] to-transparent transition duration-500 group-hover:via-[rgba(11,15,13,0.4)]" />
               <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">

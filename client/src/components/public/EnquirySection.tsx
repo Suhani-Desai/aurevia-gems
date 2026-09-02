@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { ApiRequestError } from '../../services/api';
 import { submitEnquiry, type EnquiryInput } from '../../services/enquiryService';
 
 const emptyForm: EnquiryInput = {
@@ -26,6 +27,7 @@ export function EnquirySection({
   const [errors, setErrors] = useState<Partial<Record<keyof EnquiryInput, string>>>({});
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   function validate() {
     const next: Partial<Record<keyof EnquiryInput, string>> = {};
@@ -46,6 +48,7 @@ export function EnquirySection({
     event.preventDefault();
     if (!validate()) return;
     setSubmitting(true);
+    setSubmitError('');
     try {
       await submitEnquiry({
         ...form,
@@ -58,6 +61,12 @@ export function EnquirySection({
       });
       setSubmitted(true);
       setForm({ ...emptyForm, requirement: defaultRequirement });
+    } catch (err) {
+      setSubmitError(
+        err instanceof ApiRequestError
+          ? err.message
+          : 'Unable to submit enquiry. Please try again.',
+      );
     } finally {
       setSubmitting(false);
     }
@@ -156,6 +165,10 @@ export function EnquirySection({
           </span>
         ) : null}
       </label>
+
+      {submitError ? (
+        <p className="md:col-span-2 text-sm text-[var(--danger)]">{submitError}</p>
+      ) : null}
 
       <div className="md:col-span-2">
         <button type="submit" className="btn-primary" disabled={submitting}>

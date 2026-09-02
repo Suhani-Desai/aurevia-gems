@@ -72,7 +72,23 @@ export type DashboardSummary = {
   totalStockUnits: number;
   lowStockCount: number;
   inventoryValue: number;
+  newEnquiryCount: number;
   recentTransactions: InventoryTransaction[];
+};
+
+export type EnquiryStatus = 'NEW' | 'REVIEWED' | 'CLOSED';
+
+export type Enquiry = {
+  id: string;
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  requirement: string;
+  message: string;
+  status: EnquiryStatus;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type CreateCategoryInput = {

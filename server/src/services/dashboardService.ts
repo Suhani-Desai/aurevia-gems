@@ -10,6 +10,7 @@ export async function getDashboardSummary() {
     lowStockRows,
     valueRows,
     recentTransactions,
+    newEnquiryCount,
   ] = await Promise.all([
     prisma.product.count(),
     prisma.category.count(),
@@ -42,6 +43,7 @@ export async function getDashboardSummary() {
         },
       },
     }),
+    prisma.enquiry.count({ where: { status: 'NEW' } }),
   ]);
 
   return {
@@ -50,6 +52,7 @@ export async function getDashboardSummary() {
     totalStockUnits: stockAggregate._sum.currentStock ?? 0,
     lowStockCount: Number(lowStockRows[0]?.count ?? 0),
     inventoryValue: decimalToNumber(valueRows[0]?.inventoryValue ?? 0),
+    newEnquiryCount,
     recentTransactions: recentTransactions.map((transaction) => ({
       ...transaction,
       product: serializeProduct(transaction.product),

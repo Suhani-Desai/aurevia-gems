@@ -78,8 +78,8 @@ npm run build
 React frontend  →  Express API  →  Prisma  →  PostgreSQL
 ```
 
-- **Public website** (`/`, `/collections`, `/product/:id`, `/contact`) is unauthenticated and reads catalogue data from the API.
-- **Admin application** (`/login`, `/dashboard`, `/products`, `/categories`, `/inventory`) is JWT-protected and manages inventory operations.
+- **Public website** (`/`, `/collections`, `/product/:id`, `/contact`) is unauthenticated and reads catalogue data from the API. Contact form submissions POST to `/api/enquiries`.
+- **Admin application** (`/login`, `/dashboard`, `/enquiries`, `/products`, `/categories`, `/inventory`) is JWT-protected and manages inventory operations plus trade enquiries.
 - Admin product routes (`/products`, `/products/new`, `/products/:id/edit`) are separate from the public product detail route (`/product/:id`).
 
 ## Project structure
