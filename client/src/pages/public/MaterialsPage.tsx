@@ -36,16 +36,16 @@ const materials = [
 export function MaterialsPage() {
   return (
     <div>
-      <section className="bg-[var(--onyx)] pt-24 text-[var(--pearl)]">
+      <section className="bg-[var(--onyx)] pt-24 text-white">
         <div className="mx-auto grid max-w-[1440px] gap-6 px-5 py-12 md:grid-cols-[1.2fr_0.8fr] md:items-end md:px-10 md:py-14">
           <div>
             <p className="eyebrow text-[var(--gold-soft)]">Materials</p>
             <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-            <h1 className="font-display mt-5 text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="font-display mt-5 text-4xl text-white md:text-5xl lg:text-6xl">
               Diamonds and fine metals for modern jewellery houses.
             </h1>
           </div>
-          <p className="text-sm leading-7 text-[rgba(242,244,242,0.65)]">
+          <p className="text-sm leading-7 text-white/70">
             Explore each pillar of the Aurevia assortment, then open the matching
             collection filter to review available pieces.
           </p>

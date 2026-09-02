@@ -70,15 +70,15 @@ export function CollectionsPage() {
 
   return (
     <div>
-      <section className="bg-[var(--emerald)] pt-24 text-[var(--pearl)]">
+      <section className="bg-[var(--emerald)] pt-24 text-white">
         <div className="mx-auto grid max-w-[1440px] gap-6 px-5 py-10 md:grid-cols-[1.3fr_0.7fr] md:items-end md:px-10 md:py-12">
           <div>
             <p className="eyebrow text-[var(--gold-soft)]">Collections</p>
             <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-            <h1 className="font-display mt-5 text-4xl md:text-5xl">
+            <h1 className="font-display mt-5 text-4xl text-white md:text-5xl">
               Materials selected for modern jewellery houses.
             </h1>
-            <p className="mt-4 max-w-xl text-sm leading-7 text-[rgba(242,244,242,0.7)]">
+            <p className="mt-4 max-w-xl text-sm leading-7 text-white/75">
               Browse the live catalogue by material. Each piece is curated for
               commercial programmes—clarity, consistency and lasting appeal.
             </p>

@@ -205,13 +205,14 @@ a {
 
 .btn-enquiry-light {
   background: transparent;
-  color: var(--pearl);
-  border: 1px solid rgba(212, 188, 138, 0.65);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.55);
   box-shadow: none;
 }
 
 .btn-enquiry-light:hover {
-  background: rgba(212, 188, 138, 0.14);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   filter: none;
   box-shadow: none;
 }

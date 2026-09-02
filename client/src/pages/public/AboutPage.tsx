@@ -20,16 +20,16 @@ const pillars = [
 export function AboutPage() {
   return (
     <div>
-      <section className="bg-[var(--emerald)] pt-24 text-[var(--pearl)]">
+      <section className="bg-[var(--emerald)] pt-24 text-white">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-12 md:grid-cols-2 md:items-end md:gap-12 md:px-10 md:py-14">
           <div>
             <p className="eyebrow text-[var(--gold-soft)]">About Aurevia</p>
             <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-            <h1 className="font-display mt-5 text-4xl md:text-5xl lg:text-6xl">
+            <h1 className="font-display mt-5 text-4xl text-white md:text-5xl lg:text-6xl">
               A jewellery house standard for modern trade.
             </h1>
           </div>
-          <p className="max-w-md text-sm leading-7 text-[rgba(242,244,242,0.72)] md:pb-2">
+          <p className="max-w-md text-sm leading-7 text-white/75 md:pb-2">
             Aurevia Gems partners with jewellery businesses that value restraint,
             reliability and materials chosen with purpose.
           </p>

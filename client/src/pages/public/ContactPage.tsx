@@ -20,16 +20,16 @@ export function ContactPage() {
 
   return (
     <div>
-      <section className="bg-[var(--emerald)] pt-24 text-[var(--pearl)]">
+      <section className="bg-[var(--emerald)] pt-24 text-white">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-10 md:grid-cols-[1fr_1.1fr] md:items-stretch md:gap-10 md:px-10 md:py-12">
           <div className="flex flex-col justify-between gap-8">
             <div>
               <p className="eyebrow text-[var(--gold-soft)]">Contact</p>
               <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-              <h1 className="font-display mt-5 text-4xl md:text-5xl">
+              <h1 className="font-display mt-5 text-4xl text-white md:text-5xl">
                 Let&apos;s talk about your next collection.
               </h1>
-              <p className="mt-5 text-sm leading-7 text-[rgba(242,244,242,0.72)]">
+              <p className="mt-5 text-sm leading-7 text-white/75">
                 Share your sourcing requirements and our trade team will respond
                 with suitability, availability, and clear next steps.
               </p>

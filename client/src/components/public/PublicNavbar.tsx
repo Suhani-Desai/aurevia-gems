@@ -8,19 +8,26 @@ const links = [
   { to: '/contact', label: 'Contact' },
 ];
 
+/** Pages whose first viewport is a dark emerald/onyx band under the fixed nav. */
+function pageHasDarkHero(pathname: string): boolean {
+  if (pathname === '/') return true;
+  return ['/collections', '/about', '/materials', '/contact'].some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
+}
+
 export function PublicNavbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === '/';
-  const lightOnDark = isHome && !scrolled && !open;
+  const lightOnDark = pageHasDarkHero(location.pathname) && !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     setOpen(false);
@@ -33,16 +40,11 @@ export function PublicNavbar() {
     };
   }, [open]);
 
-  const text = lightOnDark ? 'text-[var(--pearl)]' : 'text-[var(--ink)]';
-  const muted = lightOnDark
-    ? 'text-[rgba(242,244,242,0.72)]'
-    : 'text-[var(--muted)]';
-
   return (
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-400 ${
         scrolled
-          ? 'border-b border-[var(--border)]/80 bg-[rgba(242,244,242,0.94)] backdrop-blur-md'
+          ? 'border-b border-[var(--border)]/80 bg-[rgba(242,244,242,0.96)] backdrop-blur-md'
           : 'bg-transparent'
       }`}
     >
@@ -53,7 +55,9 @@ export function PublicNavbar() {
       >
         <Link
           to="/"
-          className={`font-display text-xl tracking-[-0.02em] md:text-[1.65rem] ${text}`}
+          className={`font-display text-xl tracking-[-0.02em] md:text-[1.65rem] ${
+            lightOnDark ? 'text-white' : 'text-[var(--ink)]'
+          }`}
           onClick={() => setOpen(false)}
         >
           Aurevia Gems
@@ -62,25 +66,24 @@ export function PublicNavbar() {
         <nav
           className={`hidden items-center gap-1 rounded-2xl px-1.5 py-1 md:flex ${
             lightOnDark
-              ? 'bg-white/10 backdrop-blur-sm'
-              : scrolled
-                ? 'bg-[var(--pearl-deep)]/70'
-                : 'bg-[var(--pearl-deep)]/55'
+              ? 'bg-white/12 backdrop-blur-sm'
+              : 'bg-[var(--pearl-deep)]/80'
           }`}
         >
           {links.map((link) => (
             <NavLink
               key={link.label}
               to={link.to}
-              className={({ isActive }) =>
-                `rounded-xl px-4 py-2 text-[11px] tracking-[0.14em] uppercase transition ${
-                  isActive
-                    ? lightOnDark
-                      ? 'bg-[var(--pearl)] text-[var(--onyx)]'
-                      : 'bg-[var(--emerald)] text-[var(--pearl)]'
-                    : `${muted} hover:text-[inherit]`
-                }`
-              }
+              className={({ isActive }) => {
+                if (isActive) {
+                  return lightOnDark
+                    ? 'rounded-xl bg-white px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-[var(--onyx)]'
+                    : 'rounded-xl bg-[var(--emerald)] px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-white';
+                }
+                return lightOnDark
+                  ? 'rounded-xl px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-white/75 transition hover:text-white'
+                  : 'rounded-xl px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-[var(--muted)] transition hover:text-[var(--ink)]';
+              }}
             >
               {link.label}
             </NavLink>
@@ -99,7 +102,9 @@ export function PublicNavbar() {
 
         <button
           type="button"
-          className={`text-[11px] tracking-[0.2em] uppercase md:hidden ${text}`}
+          className={`text-[11px] tracking-[0.2em] uppercase md:hidden ${
+            lightOnDark ? 'text-white' : 'text-[var(--ink)]'
+          }`}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
         >
@@ -108,12 +113,12 @@ export function PublicNavbar() {
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-[55] flex flex-col bg-[var(--emerald)] px-6 py-7 text-[var(--pearl)] md:hidden">
+        <div className="fixed inset-0 z-[55] flex flex-col bg-[var(--emerald)] px-6 py-7 text-white md:hidden">
           <div className="flex items-center justify-between">
-            <span className="font-display text-2xl">Aurevia Gems</span>
+            <span className="font-display text-2xl text-white">Aurevia Gems</span>
             <button
               type="button"
-              className="text-[11px] uppercase tracking-[0.18em]"
+              className="text-[11px] uppercase tracking-[0.18em] text-white"
               onClick={() => setOpen(false)}
             >
               Close
@@ -125,7 +130,7 @@ export function PublicNavbar() {
                 key={link.label}
                 to={link.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-4 font-display text-3xl"
+                className="border-b border-white/15 py-4 font-display text-3xl text-white"
               >
                 {link.label}
               </Link>
