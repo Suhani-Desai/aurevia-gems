@@ -20,7 +20,7 @@ export function ContactPage() {
 
   return (
     <div>
-      <section className="surface-dark bg-[var(--emerald)] pt-24">
+      <section className="surface-dark pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-10 md:grid-cols-[1fr_1.1fr] md:items-stretch md:gap-10 md:px-10 md:py-12">
           <div className="flex flex-col justify-between gap-8">
             <div>

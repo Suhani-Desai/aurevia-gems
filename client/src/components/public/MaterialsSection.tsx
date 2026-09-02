@@ -43,7 +43,7 @@ export function MaterialsSection() {
     <section
       id="materials"
       ref={sectionRef}
-      className="surface-dark scroll-mt-24 bg-[var(--onyx)]"
+      className="surface-dark-onyx scroll-mt-24"
     >
       <div className="mx-auto max-w-[1440px] px-5 py-14 md:px-10 md:py-16">
         <div

@@ -20,7 +20,7 @@ const pillars = [
 export function AboutPage() {
   return (
     <div>
-      <section className="surface-dark bg-[var(--emerald)] pt-24">
+      <section className="surface-dark pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-12 md:grid-cols-2 md:items-end md:gap-12 md:px-10 md:py-14">
           <div>
             <p className="eyebrow">About Aurevia</p>

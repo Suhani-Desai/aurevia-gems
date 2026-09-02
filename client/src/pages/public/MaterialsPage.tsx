@@ -36,7 +36,7 @@ const materials = [
 export function MaterialsPage() {
   return (
     <div>
-      <section className="surface-dark bg-[var(--onyx)] pt-24">
+      <section className="surface-dark-onyx pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-6 px-5 py-12 md:grid-cols-[1.2fr_0.8fr] md:items-end md:px-10 md:py-14">
           <div>
             <p className="eyebrow">Materials</p>
@@ -83,7 +83,7 @@ export function MaterialsPage() {
         </div>
       </section>
 
-      <section className="surface-dark bg-[var(--emerald)]">
+      <section className="surface-dark">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-10 md:py-14">
           <div>
             <h2 className="font-display text-3xl md:text-4xl">

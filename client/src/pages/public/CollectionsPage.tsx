@@ -70,7 +70,7 @@ export function CollectionsPage() {
 
   return (
     <div>
-      <section className="surface-dark bg-[var(--emerald)] pt-24">
+      <section className="surface-dark pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-6 px-5 py-10 md:grid-cols-[1.3fr_0.7fr] md:items-end md:px-10 md:py-12">
           <div>
             <p className="eyebrow">Collections</p>

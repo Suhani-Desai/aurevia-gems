@@ -68,7 +68,7 @@ export function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="surface-dark relative min-h-[100svh] overflow-hidden bg-[var(--onyx)]"
+      className="surface-dark-onyx relative min-h-[100svh] overflow-hidden"
     >
       <div ref={imageWrapRef} className="absolute inset-0">
         <MediaImage

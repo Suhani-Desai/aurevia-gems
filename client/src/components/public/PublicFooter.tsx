@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export function PublicFooter() {
   return (
-    <footer className="surface-dark bg-[var(--emerald)]">
+    <footer className="surface-dark">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 md:grid-cols-[1.5fr_1fr_1fr] md:gap-10 md:px-10 md:py-16">
         <div>
           <p className="font-display text-3xl tracking-[-0.02em]">Aurevia Gems</p>

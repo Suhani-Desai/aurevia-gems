@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 :root {
-  /* Jewel nocturne — cool pearl, deep emerald, soft gold */
   --onyx: #0b0f0d;
   --emerald: #0d2f28;
   --emerald-mid: #164038;
@@ -17,7 +16,6 @@
   --warning: #92610a;
   --success: #1f5c45;
 
-  /* Legacy aliases used across the app */
   --forest: var(--emerald);
   --forest-deep: var(--onyx);
   --ivory: var(--pearl);
@@ -30,136 +28,42 @@
   --shadow: 0 1px 2px rgba(11, 15, 13, 0.04), 0 18px 48px rgba(11, 15, 13, 0.06);
 }
 
-@layer base {
-  * {
-    box-sizing: border-box;
-  }
-
-  html,
-  body,
-  #root {
-    min-height: 100%;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  body {
-    margin: 0;
-    color: var(--ink);
-    background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(184, 151, 90, 0.08), transparent 55%),
-      radial-gradient(900px 500px at 100% 0%, rgba(13, 47, 40, 0.06), transparent 50%),
-      var(--pearl);
-    font-family: "Outfit", "Segoe UI", sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.01em;
-  }
-
-  button,
-  input,
-  select,
-  textarea {
-    font: inherit;
-  }
-
-  /* Must stay in @layer base so Tailwind text-* utilities can override on links */
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .media-zoom:hover img,
-  .rise-in,
-  .rise-in-delay {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
-/* Dark surfaces: always force light type (including links/buttons inside) */
-.surface-dark,
-.surface-dark h1,
-.surface-dark h2,
-.surface-dark h3,
-.surface-dark p,
-.surface-dark span,
-.surface-dark a,
-.surface-dark label {
-  color: #ffffff;
+html {
+  scroll-behavior: auto;
 }
 
-.surface-dark .text-muted-on-dark,
-.surface-dark p.text-muted-on-dark,
-.surface-dark span.text-muted-on-dark {
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.surface-dark .eyebrow {
-  color: var(--gold-soft);
-}
-
-/* Nested light panels inside dark bands keep dark type */
-.surface-light,
-.surface-light h1,
-.surface-light h2,
-.surface-light h3,
-.surface-light p,
-.surface-light span,
-.surface-light a,
-.surface-light label {
+body {
+  margin: 0;
   color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(184, 151, 90, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 100% 0%, rgba(13, 47, 40, 0.06), transparent 50%),
+    var(--pearl);
+  font-family: "Outfit", "Segoe UI", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
-.surface-light .eyebrow {
-  color: var(--gold);
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 
-.surface-light .text-muted-on-dark {
-  color: var(--muted);
-}
-
-.nav-pill {
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: background 200ms ease, color 200ms ease;
-}
-
-.nav-pill-idle {
-  color: var(--muted);
-}
-
-.nav-pill-idle:hover {
-  color: var(--ink);
-}
-
-.nav-pill-idle-on-dark {
-  color: rgba(255, 255, 255, 0.78);
-}
-
-.nav-pill-idle-on-dark:hover {
-  color: #ffffff;
-}
-
-.nav-pill-active {
-  background: var(--emerald);
-  color: #ffffff !important;
-}
-
-.nav-pill-active-on-dark {
-  background: #ffffff;
-  color: var(--onyx) !important;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 .font-display {
@@ -188,6 +92,36 @@
   color: var(--ink);
 }
 
+/* Dark bands: background + light type together (do not rely on Tailwind for bg) */
+.surface-dark {
+  background-color: var(--emerald);
+  color: #ffffff;
+}
+
+.surface-dark-onyx {
+  background-color: var(--onyx);
+  color: #ffffff;
+}
+
+.surface-dark .eyebrow,
+.surface-dark-onyx .eyebrow {
+  color: var(--gold-soft);
+}
+
+.surface-dark .text-muted-on-dark,
+.surface-dark-onyx .text-muted-on-dark {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.surface-light {
+  background-color: var(--pearl);
+  color: var(--ink);
+}
+
+.surface-light .eyebrow {
+  color: var(--gold);
+}
+
 .nav-underline {
   position: relative;
 }
@@ -208,6 +142,43 @@
 .nav-underline:hover::after,
 .group:hover .nav-underline::after {
   transform: scaleX(1);
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.nav-pill-idle {
+  color: var(--muted);
+}
+
+.nav-pill-idle:hover {
+  color: var(--ink);
+}
+
+.nav-pill-idle-on-dark {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.nav-pill-idle-on-dark:hover {
+  color: #ffffff;
+}
+
+.nav-pill-active {
+  background: var(--emerald);
+  color: #ffffff !important;
+}
+
+.nav-pill-active-on-dark {
+  background: #ffffff;
+  color: #0b0f0d !important;
 }
 
 .btn-primary,
@@ -250,7 +221,7 @@
 .btn-ghost:hover {
   background: var(--ink);
   border-color: var(--ink);
-  color: var(--pearl);
+  color: #ffffff;
 }
 
 .btn-ghost-light {
@@ -341,12 +312,6 @@
   pointer-events: none;
 }
 
-.hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  opacity: 0.55;
-}
-
 .gold-rule {
   width: 3.5rem;
   height: 1px;
@@ -385,16 +350,6 @@
 
 .rise-in-delay {
   animation: riseIn 800ms ease 120ms both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rise-in,
-  .rise-in-delay,
-  .media-zoom img {
-    animation: none !important;
-    transition: none !important;
-    transform: none !important;
-  }
 }
 
 .scroll-hint {
@@ -454,4 +409,18 @@
   height: 100%;
   border-radius: inherit;
   background: var(--emerald);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .media-zoom:hover img,
+  .rise-in,
+  .rise-in-delay {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
 }
