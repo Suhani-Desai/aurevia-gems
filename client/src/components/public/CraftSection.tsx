@@ -11,7 +11,7 @@ export function CraftSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[var(--emerald)] text-[var(--pearl)]"
+      className="surface-dark relative overflow-hidden bg-[var(--emerald)]"
     >
       <div className="absolute inset-0 opacity-35">
         <MediaImage

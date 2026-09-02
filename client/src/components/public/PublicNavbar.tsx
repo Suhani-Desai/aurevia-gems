@@ -55,9 +55,8 @@ export function PublicNavbar() {
       >
         <Link
           to="/"
-          className={`font-display text-xl tracking-[-0.02em] md:text-[1.65rem] ${
-            lightOnDark ? 'text-white' : 'text-[var(--ink)]'
-          }`}
+          className="font-display text-xl tracking-[-0.02em] md:text-[1.65rem]"
+          style={{ color: lightOnDark ? '#ffffff' : 'var(--ink)' }}
           onClick={() => setOpen(false)}
         >
           Aurevia Gems
@@ -77,12 +76,12 @@ export function PublicNavbar() {
               className={({ isActive }) => {
                 if (isActive) {
                   return lightOnDark
-                    ? 'rounded-xl bg-white px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-[var(--onyx)]'
-                    : 'rounded-xl bg-[var(--emerald)] px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-white';
+                    ? 'nav-pill nav-pill-active-on-dark'
+                    : 'nav-pill nav-pill-active';
                 }
                 return lightOnDark
-                  ? 'rounded-xl px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-white/75 transition hover:text-white'
-                  : 'rounded-xl px-4 py-2 text-[11px] tracking-[0.14em] uppercase text-[var(--muted)] transition hover:text-[var(--ink)]';
+                  ? 'nav-pill nav-pill-idle-on-dark'
+                  : 'nav-pill nav-pill-idle';
               }}
             >
               {link.label}
@@ -102,9 +101,8 @@ export function PublicNavbar() {
 
         <button
           type="button"
-          className={`text-[11px] tracking-[0.2em] uppercase md:hidden ${
-            lightOnDark ? 'text-white' : 'text-[var(--ink)]'
-          }`}
+          className="text-[11px] tracking-[0.2em] uppercase md:hidden"
+          style={{ color: lightOnDark ? '#ffffff' : 'var(--ink)' }}
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
         >
@@ -113,12 +111,12 @@ export function PublicNavbar() {
       </div>
 
       {open ? (
-        <div className="fixed inset-0 z-[55] flex flex-col bg-[var(--emerald)] px-6 py-7 text-white md:hidden">
+        <div className="surface-dark fixed inset-0 z-[55] flex flex-col bg-[var(--emerald)] px-6 py-7 md:hidden">
           <div className="flex items-center justify-between">
-            <span className="font-display text-2xl text-white">Aurevia Gems</span>
+            <span className="font-display text-2xl">Aurevia Gems</span>
             <button
               type="button"
-              className="text-[11px] uppercase tracking-[0.18em] text-white"
+              className="text-[11px] uppercase tracking-[0.18em]"
               onClick={() => setOpen(false)}
             >
               Close
@@ -130,7 +128,7 @@ export function PublicNavbar() {
                 key={link.label}
                 to={link.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-white/15 py-4 font-display text-3xl text-white"
+                className="border-b border-white/15 py-4 font-display text-3xl"
               >
                 {link.label}
               </Link>

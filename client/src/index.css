@@ -30,18 +30,45 @@
   --shadow: 0 1px 2px rgba(11, 15, 13, 0.04), 0 18px 48px rgba(11, 15, 13, 0.06);
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html,
-body,
-#root {
-  min-height: 100%;
-}
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
 
-html {
-  scroll-behavior: auto;
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(184, 151, 90, 0.08), transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, rgba(13, 47, 40, 0.06), transparent 50%),
+      var(--pearl);
+    font-family: "Outfit", "Segoe UI", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  /* Must stay in @layer base so Tailwind text-* utilities can override on links */
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -58,28 +85,81 @@ html {
   }
 }
 
-body {
-  margin: 0;
+/* Dark surfaces: always force light type (including links/buttons inside) */
+.surface-dark,
+.surface-dark h1,
+.surface-dark h2,
+.surface-dark h3,
+.surface-dark p,
+.surface-dark span,
+.surface-dark a,
+.surface-dark label {
+  color: #ffffff;
+}
+
+.surface-dark .text-muted-on-dark,
+.surface-dark p.text-muted-on-dark,
+.surface-dark span.text-muted-on-dark {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.surface-dark .eyebrow {
+  color: var(--gold-soft);
+}
+
+/* Nested light panels inside dark bands keep dark type */
+.surface-light,
+.surface-light h1,
+.surface-light h2,
+.surface-light h3,
+.surface-light p,
+.surface-light span,
+.surface-light a,
+.surface-light label {
   color: var(--ink);
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(184, 151, 90, 0.08), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgba(13, 47, 40, 0.06), transparent 50%),
-    var(--pearl);
-  font-family: "Outfit", "Segoe UI", sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.01em;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+.surface-light .eyebrow {
+  color: var(--gold);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.surface-light .text-muted-on-dark {
+  color: var(--muted);
+}
+
+.nav-pill {
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.nav-pill-idle {
+  color: var(--muted);
+}
+
+.nav-pill-idle:hover {
+  color: var(--ink);
+}
+
+.nav-pill-idle-on-dark {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.nav-pill-idle-on-dark:hover {
+  color: #ffffff;
+}
+
+.nav-pill-active {
+  background: var(--emerald);
+  color: #ffffff !important;
+}
+
+.nav-pill-active-on-dark {
+  background: #ffffff;
+  color: var(--onyx) !important;
 }
 
 .font-display {
@@ -152,7 +232,7 @@ a {
 
 .btn-primary {
   background: var(--emerald);
-  color: var(--pearl);
+  color: #ffffff;
   border: 1px solid transparent;
 }
 

@@ -157,11 +157,12 @@ export function InventoryPage() {
               key={item}
               type="button"
               onClick={() => setMode(item)}
-              className={`px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
+              className={`rounded-[0.85rem] px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
                 mode === item
-                  ? 'bg-[var(--forest)] text-[var(--ivory)]'
-                  : 'border border-[var(--border)] text-[var(--charcoal)]'
+                  ? 'bg-[var(--emerald)] text-white'
+                  : 'border border-[var(--border)] text-[var(--ink)]'
               }`}
+              style={mode === item ? { color: '#ffffff' } : undefined}
             >
               {item === 'STOCK_IN' ? 'Stock In' : 'Stock Out'}
             </button>

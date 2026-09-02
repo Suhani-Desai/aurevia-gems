@@ -36,16 +36,16 @@ const materials = [
 export function MaterialsPage() {
   return (
     <div>
-      <section className="bg-[var(--onyx)] pt-24 text-white">
+      <section className="surface-dark bg-[var(--onyx)] pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-6 px-5 py-12 md:grid-cols-[1.2fr_0.8fr] md:items-end md:px-10 md:py-14">
           <div>
-            <p className="eyebrow text-[var(--gold-soft)]">Materials</p>
+            <p className="eyebrow">Materials</p>
             <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-            <h1 className="font-display mt-5 text-4xl text-white md:text-5xl lg:text-6xl">
+            <h1 className="font-display mt-5 text-4xl md:text-5xl lg:text-6xl">
               Diamonds and fine metals for modern jewellery houses.
             </h1>
           </div>
-          <p className="text-sm leading-7 text-white/70">
+          <p className="text-muted-on-dark text-sm leading-7">
             Explore each pillar of the Aurevia assortment, then open the matching
             collection filter to review available pieces.
           </p>
@@ -83,13 +83,13 @@ export function MaterialsPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--emerald)] text-[var(--pearl)]">
+      <section className="surface-dark bg-[var(--emerald)]">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-5 px-5 py-12 md:flex-row md:items-center md:justify-between md:px-10 md:py-14">
           <div>
             <h2 className="font-display text-3xl md:text-4xl">
               Prefer the homepage materials gallery?
             </h2>
-            <p className="mt-3 max-w-lg text-sm leading-7 text-[rgba(242,244,242,0.7)]">
+            <p className="text-muted-on-dark mt-3 max-w-lg text-sm leading-7">
               Jump back to the materials section on the home experience, or open
               the full catalogue.
             </p>

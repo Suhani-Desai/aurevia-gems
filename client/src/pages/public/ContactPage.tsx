@@ -20,16 +20,16 @@ export function ContactPage() {
 
   return (
     <div>
-      <section className="bg-[var(--emerald)] pt-24 text-white">
+      <section className="surface-dark bg-[var(--emerald)] pt-24">
         <div className="mx-auto grid max-w-[1440px] gap-8 px-5 py-10 md:grid-cols-[1fr_1.1fr] md:items-stretch md:gap-10 md:px-10 md:py-12">
           <div className="flex flex-col justify-between gap-8">
             <div>
-              <p className="eyebrow text-[var(--gold-soft)]">Contact</p>
+              <p className="eyebrow">Contact</p>
               <div className="gold-rule mt-4 bg-[var(--gold-soft)]" />
-              <h1 className="font-display mt-5 text-4xl text-white md:text-5xl">
+              <h1 className="font-display mt-5 text-4xl md:text-5xl">
                 Let&apos;s talk about your next collection.
               </h1>
-              <p className="mt-5 text-sm leading-7 text-white/75">
+              <p className="text-muted-on-dark mt-5 text-sm leading-7">
                 Share your sourcing requirements and our trade team will respond
                 with suitability, availability, and clear next steps.
               </p>
@@ -93,10 +93,8 @@ export function ContactPage() {
             </div>
           </div>
 
-          <div className="rounded-[1.35rem] bg-[var(--pearl)] p-5 text-[var(--ink)] md:p-7">
-            <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--gold)]">
-              Trade enquiry form
-            </p>
+          <div className="surface-light rounded-[1.35rem] bg-[var(--pearl)] p-5 md:p-7">
+            <p className="eyebrow">Trade enquiry form</p>
             <h2 className="font-display mt-2 text-3xl">Send your brief</h2>
             <div className="mt-5">
               <EnquirySection defaultRequirement={requirement} embedded />
