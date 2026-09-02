@@ -73,6 +73,8 @@ model InventoryTransaction {
   type      InventoryTransactionType
   quantity  Int
   balance   Int
+  /// Selling price captured at STOCK_OUT time. Null for STOCK_IN / ADJUSTMENT and legacy rows.
+  unitPrice Decimal?                  @db.Decimal(12, 2)
   createdAt DateTime                  @default(now())
   product   Product                   @relation(fields: [productId], references: [id], onDelete: Cascade)
 

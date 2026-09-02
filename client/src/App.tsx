@@ -8,6 +8,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { EnquiriesPage } from './pages/EnquiriesPage';
 import { InventoryPage } from './pages/InventoryPage';
 import { LoginPage } from './pages/LoginPage';
+import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ProductFormPage } from './pages/ProductFormPage';
 import { ProductsPage } from './pages/ProductsPage';
 import { CollectionsPage } from './pages/public/CollectionsPage';
@@ -40,6 +41,7 @@ export default function App() {
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/products/new" element={<ProductFormPage />} />
               <Route path="/products/:id/edit" element={<ProductFormPage />} />
+              <Route path="/products/:id" element={<ProductDetailPage />} />
               <Route path="/categories" element={<CategoriesPage />} />
               <Route path="/inventory" element={<InventoryPage />} />
             </Route>

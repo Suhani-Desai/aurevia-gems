@@ -19,7 +19,8 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "test": "tsx --env-file=.env --test server/tests/assessment.test.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"

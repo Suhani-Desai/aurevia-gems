@@ -6,6 +6,11 @@ const positiveInt = z.coerce
   .int('Quantity must be an integer')
   .positive('Quantity must be a positive integer');
 
+const nonNegativeInt = z.coerce
+  .number({ invalid_type_error: 'Adjusted stock must be a number' })
+  .int('Adjusted stock must be an integer')
+  .min(0, 'Adjusted stock cannot be negative');
+
 export const productIdParamSchema = z.object({
   productId: z.string().min(1, 'productId is required'),
 });
@@ -13,6 +18,11 @@ export const productIdParamSchema = z.object({
 export const stockMovementSchema = z.object({
   productId: z.string().trim().min(1, 'productId is required'),
   quantity: positiveInt,
+});
+
+export const stockAdjustmentSchema = z.object({
+  productId: z.string().trim().min(1, 'productId is required'),
+  adjustedStock: nonNegativeInt,
 });
 
 export const transactionQuerySchema = z.object({
@@ -23,4 +33,5 @@ export const transactionQuerySchema = z.object({
 });
 
 export type StockMovementInput = z.infer<typeof stockMovementSchema>;
+export type StockAdjustmentInput = z.infer<typeof stockAdjustmentSchema>;
 export type TransactionQueryInput = z.infer<typeof transactionQuerySchema>;

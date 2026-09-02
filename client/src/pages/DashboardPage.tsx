@@ -81,6 +81,10 @@ export function DashboardPage() {
     { label: 'Total Stock', value: formatNumber(summary.totalStockUnits) },
     { label: 'Low Stock', value: formatNumber(summary.lowStockCount) },
     {
+      label: 'Total Sales',
+      value: formatCurrency(summary.totalSales),
+    },
+    {
       label: 'New Enquiries',
       value: formatNumber(summary.newEnquiryCount),
     },
@@ -237,7 +241,11 @@ export function DashboardPage() {
                               : 'neutral'
                         }
                       >
-                        {row.type.replace('_', ' ')}
+                        {row.type === 'STOCK_IN'
+                          ? 'Stock In'
+                          : row.type === 'STOCK_OUT'
+                            ? 'Stock Out'
+                            : 'Adjustment'}
                       </Badge>
                     </td>
                     <td>{formatNumber(row.quantity)}</td>

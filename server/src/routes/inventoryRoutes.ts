@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import {
+  adjustStock,
   listLowStock,
   listTransactions,
   listTransactionsByProduct,
@@ -14,6 +15,7 @@ import {
 } from '../middleware/validate.js';
 import {
   productIdParamSchema,
+  stockAdjustmentSchema,
   stockMovementSchema,
   transactionQuerySchema,
 } from '../validators/inventoryValidators.js';
@@ -31,6 +33,11 @@ inventoryRoutes.post(
   '/stock-out',
   validateBody(stockMovementSchema),
   stockOut,
+);
+inventoryRoutes.post(
+  '/adjust',
+  validateBody(stockAdjustmentSchema),
+  adjustStock,
 );
 inventoryRoutes.get(
   '/transactions',

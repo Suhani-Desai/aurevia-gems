@@ -4,8 +4,9 @@ import {
 } from '@prisma/client';
 import { prisma } from '../utils/prisma.js';
 import { AppError } from '../utils/AppError.js';
-import { serializeProduct } from '../utils/serialize.js';
+import { decimalToNumber, serializeProduct } from '../utils/serialize.js';
 import type {
+  StockAdjustmentInput,
   StockMovementInput,
   TransactionQueryInput,
 } from '../validators/inventoryValidators.js';
@@ -26,6 +27,7 @@ const transactionInclude = {
 
 function serializeTransaction<
   T extends {
+    unitPrice?: Prisma.Decimal | number | null;
     product: {
       purchasePrice: Prisma.Decimal | number;
       sellingPrice: Prisma.Decimal | number;
@@ -34,6 +36,10 @@ function serializeTransaction<
 >(transaction: T) {
   return {
     ...transaction,
+    unitPrice:
+      transaction.unitPrice === null || transaction.unitPrice === undefined
+        ? null
+        : decimalToNumber(transaction.unitPrice),
     product: serializeProduct(transaction.product),
   };
 }
@@ -83,6 +89,10 @@ async function applyStockChange(
         type,
         quantity: input.quantity,
         balance: nextStock,
+        unitPrice:
+          type === InventoryTransactionType.STOCK_OUT
+            ? product.sellingPrice
+            : null,
       },
       include: transactionInclude,
     });
@@ -100,6 +110,58 @@ export async function stockIn(input: StockMovementInput) {
 
 export async function stockOut(input: StockMovementInput) {
   return applyStockChange(input, InventoryTransactionType.STOCK_OUT);
+}
+
+export async function adjustStock(input: StockAdjustmentInput) {
+  return prisma.$transaction(async (tx) => {
+    const product = await tx.product.findUnique({
+      where: { id: input.productId },
+    });
+
+    if (!product) {
+      throw new AppError('Product not found', 404);
+    }
+
+    if (input.adjustedStock < 0) {
+      throw new AppError('Adjusted stock cannot be negative', 400);
+    }
+
+    const difference = input.adjustedStock - product.currentStock;
+
+    if (difference === 0) {
+      throw new AppError('Adjusted stock must differ from current stock', 400);
+    }
+
+    const updatedProduct = await tx.product.update({
+      where: { id: product.id },
+      data: { currentStock: input.adjustedStock },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+          },
+        },
+      },
+    });
+
+    const transaction = await tx.inventoryTransaction.create({
+      data: {
+        productId: product.id,
+        type: InventoryTransactionType.ADJUSTMENT,
+        quantity: Math.abs(difference),
+        balance: input.adjustedStock,
+        unitPrice: null,
+      },
+      include: transactionInclude,
+    });
+
+    return {
+      product: serializeProduct(updatedProduct),
+      transaction: serializeTransaction(transaction),
+    };
+  });
 }
 
 export async function listTransactions(query: TransactionQueryInput) {

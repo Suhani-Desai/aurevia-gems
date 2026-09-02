@@ -227,6 +227,12 @@ export function ProductsPage() {
                   <td>
                     <div className="flex gap-3">
                       <Link
+                        to={`/products/${row.id}`}
+                        className="text-[var(--forest)]"
+                      >
+                        View
+                      </Link>
+                      <Link
                         to={`/products/${row.id}/edit`}
                         className="text-[var(--forest)]"
                       >

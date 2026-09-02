@@ -2,6 +2,7 @@ import { apiRequest, buildQuery } from './api';
 import type {
   InventoryTransaction,
   Product,
+  StockAdjustmentInput,
   StockMovementInput,
   TransactionListQuery,
 } from '../types';
@@ -21,6 +22,16 @@ export async function stockOut(input: StockMovementInput) {
     product: Product;
     transaction: InventoryTransaction;
   }>('/inventory/stock-out', {
+    method: 'POST',
+    body: input,
+  });
+}
+
+export async function adjustStock(input: StockAdjustmentInput) {
+  return apiRequest<{
+    product: Product;
+    transaction: InventoryTransaction;
+  }>('/inventory/adjust', {
     method: 'POST',
     body: input,
   });

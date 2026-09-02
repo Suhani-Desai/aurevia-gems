@@ -21,7 +21,13 @@ import type {
 import { formatDateTime, formatNumber } from '../utils/format';
 import { getProductImage } from '../utils/productVisual';
 
-type MovementMode = 'STOCK_IN' | 'STOCK_OUT';
+type MovementMode = 'STOCK_IN' | 'STOCK_OUT' | 'ADJUSTMENT';
+
+function transactionTypeLabel(type: InventoryTransactionType) {
+  if (type === 'STOCK_IN') return 'Stock In';
+  if (type === 'STOCK_OUT') return 'Stock Out';
+  return 'Adjustment';
+}
 
 export function InventoryPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -32,6 +38,7 @@ export function InventoryPage() {
   const [mode, setMode] = useState<MovementMode>('STOCK_IN');
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState('1');
+  const [adjustedStock, setAdjustedStock] = useState('');
   const [formError, setFormError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [filterProductId, setFilterProductId] = useState('');
@@ -45,12 +52,20 @@ export function InventoryPage() {
   );
 
   const qty = Number(quantity);
-  const previewStock =
-    selectedProduct && Number.isInteger(qty) && qty > 0
-      ? mode === 'STOCK_IN'
-        ? selectedProduct.currentStock + qty
-        : selectedProduct.currentStock - qty
-      : null;
+  const nextAdjusted = Number(adjustedStock);
+
+  const previewStock = useMemo(() => {
+    if (!selectedProduct) return null;
+    if (mode === 'ADJUSTMENT') {
+      return Number.isInteger(nextAdjusted) && nextAdjusted >= 0
+        ? nextAdjusted
+        : null;
+    }
+    if (!Number.isInteger(qty) || qty <= 0) return null;
+    return mode === 'STOCK_IN'
+      ? selectedProduct.currentStock + qty
+      : selectedProduct.currentStock - qty;
+  }, [selectedProduct, mode, qty, nextAdjusted]);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -80,6 +95,12 @@ export function InventoryPage() {
     void load();
   }, [load]);
 
+  useEffect(() => {
+    if (selectedProduct && mode === 'ADJUSTMENT' && adjustedStock === '') {
+      setAdjustedStock(String(selectedProduct.currentStock));
+    }
+  }, [selectedProduct, mode, adjustedStock]);
+
   const productOptions = useMemo(
     () =>
       products.map((product) => ({
@@ -97,20 +118,34 @@ export function InventoryPage() {
       setFormError('Select a product.');
       return;
     }
-    if (!Number.isInteger(qty) || qty <= 0) {
+
+    if (mode === 'ADJUSTMENT') {
+      if (!Number.isInteger(nextAdjusted) || nextAdjusted < 0) {
+        setFormError('Adjusted stock must be a non-negative integer.');
+        return;
+      }
+    } else if (!Number.isInteger(qty) || qty <= 0) {
       setFormError('Quantity must be a positive integer.');
       return;
     }
+
     setSubmitting(true);
     try {
-      if (mode === 'STOCK_IN') {
+      if (mode === 'ADJUSTMENT') {
+        await inventoryService.adjustStock({
+          productId,
+          adjustedStock: nextAdjusted,
+        });
+        setSuccess('Stock adjusted successfully.');
+      } else if (mode === 'STOCK_IN') {
         await inventoryService.stockIn({ productId, quantity: qty });
         setSuccess('Stock received successfully.');
+        setQuantity('1');
       } else {
         await inventoryService.stockOut({ productId, quantity: qty });
         setSuccess('Stock issued successfully.');
+        setQuantity('1');
       }
-      setQuantity('1');
       await load();
     } catch (err) {
       setFormError(
@@ -151,12 +186,24 @@ export function InventoryPage() {
       {error ? <Alert>{error}</Alert> : null}
 
       <section className="rounded-[0.85rem] border border-[var(--border)] bg-[var(--white)] p-5 md:p-6">
-        <div className="flex gap-2">
-          {(['STOCK_IN', 'STOCK_OUT'] as const).map((item) => (
+        <div className="flex flex-wrap gap-2">
+          {(
+            [
+              ['STOCK_IN', 'Stock In'],
+              ['STOCK_OUT', 'Stock Out'],
+              ['ADJUSTMENT', 'Adjustment'],
+            ] as const
+          ).map(([item, label]) => (
             <button
               key={item}
               type="button"
-              onClick={() => setMode(item)}
+              onClick={() => {
+                setMode(item);
+                setFormError('');
+                if (item === 'ADJUSTMENT' && selectedProduct) {
+                  setAdjustedStock(String(selectedProduct.currentStock));
+                }
+              }}
               className={`rounded-[0.85rem] px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
                 mode === item
                   ? 'bg-[var(--emerald)] text-white'
@@ -164,7 +211,7 @@ export function InventoryPage() {
               }`}
               style={mode === item ? { color: '#ffffff' } : undefined}
             >
-              {item === 'STOCK_IN' ? 'Stock In' : 'Stock Out'}
+              {label}
             </button>
           ))}
         </div>
@@ -179,17 +226,36 @@ export function InventoryPage() {
             placeholder="Select product"
             options={productOptions}
             value={productId}
-            onChange={(e) => setProductId(e.target.value)}
+            onChange={(e) => {
+              const nextId = e.target.value;
+              setProductId(nextId);
+              const product = products.find((p) => p.id === nextId);
+              if (mode === 'ADJUSTMENT' && product) {
+                setAdjustedStock(String(product.currentStock));
+              }
+            }}
           />
-          <Input
-            label="Quantity"
-            name="quantity"
-            type="number"
-            min="1"
-            step="1"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
+          {mode === 'ADJUSTMENT' ? (
+            <Input
+              label="Adjusted stock"
+              name="adjustedStock"
+              type="number"
+              min="0"
+              step="1"
+              value={adjustedStock}
+              onChange={(e) => setAdjustedStock(e.target.value)}
+            />
+          ) : (
+            <Input
+              label="Quantity"
+              name="quantity"
+              type="number"
+              min="1"
+              step="1"
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+          )}
           <div className="rounded-[0.85rem] border border-[var(--border)] bg-[var(--surface)] px-3 py-2">
             <p className="text-[11px] uppercase tracking-[0.14em] text-[var(--muted)]">
               Resulting stock
@@ -208,7 +274,9 @@ export function InventoryPage() {
                 ? 'Processing...'
                 : mode === 'STOCK_IN'
                   ? 'Receive'
-                  : 'Issue'}
+                  : mode === 'STOCK_OUT'
+                    ? 'Issue'
+                    : 'Adjust'}
             </Button>
           </div>
         </form>
@@ -299,7 +367,7 @@ export function InventoryPage() {
                               : 'neutral'
                         }
                       >
-                        {row.type.replace('_', ' ')}
+                        {transactionTypeLabel(row.type)}
                       </Badge>
                     </td>
                     <td>{formatNumber(row.quantity)}</td>

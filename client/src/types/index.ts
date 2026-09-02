@@ -62,6 +62,7 @@ export type InventoryTransaction = {
   type: InventoryTransactionType;
   quantity: number;
   balance: number;
+  unitPrice: number | null;
   createdAt: string;
   product: Product;
 };
@@ -72,6 +73,7 @@ export type DashboardSummary = {
   totalStockUnits: number;
   lowStockCount: number;
   inventoryValue: number;
+  totalSales: number;
   newEnquiryCount: number;
   recentTransactions: InventoryTransaction[];
 };
@@ -117,6 +119,11 @@ export type ProductListQuery = {
 export type StockMovementInput = {
   productId: string;
   quantity: number;
+};
+
+export type StockAdjustmentInput = {
+  productId: string;
+  adjustedStock: number;
 };
 
 export type TransactionListQuery = {
