@@ -1,9 +1,6 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import gsap from 'gsap';
 import { ProductCard } from '../../components/public/ProductCard';
-import { Line, SplitLines } from '../../motion/SplitLines';
-import { prefersReducedMotion } from '../../motion/preferences';
 import { ApiRequestError } from '../../services/api';
 import * as publicCatalogService from '../../services/publicCatalogService';
 import * as publicCategoryService from '../../services/publicCategoryService';
@@ -18,8 +15,6 @@ export function CollectionsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const pageRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function load() {
@@ -60,58 +55,20 @@ export function CollectionsPage() {
     return products.filter((product) => product.category.name === material);
   }, [products, material]);
 
-  useLayoutEffect(() => {
-    if (!pageRef.current || prefersReducedMotion()) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-collections-filters]', {
-        opacity: 0,
-        y: 16,
-        duration: 0.7,
-        delay: 0.2,
-        ease: 'power3.out',
-      });
-    }, pageRef);
-    return () => ctx.revert();
-  }, []);
-
-  useLayoutEffect(() => {
-    if (!gridRef.current || loading || prefersReducedMotion()) return;
-    const cards = gridRef.current.querySelectorAll('[data-product-card]');
-    gsap.fromTo(
-      cards,
-      { opacity: 0, y: 28 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.55,
-        stagger: 0.06,
-        ease: 'power3.out',
-      },
-    );
-  }, [filtered, loading, material]);
-
   return (
-    <div ref={pageRef}>
+    <div>
       <section className="border-b border-[var(--border)]">
         <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">
           <p className="eyebrow">Collections</p>
-          <SplitLines
-            as="h1"
-            triggerOnMount
-            className="font-display mt-4 max-w-3xl text-4xl md:text-6xl"
-          >
-            <Line>Materials selected for</Line>
-            <Line>modern jewellery houses.</Line>
-          </SplitLines>
+          <h1 className="font-display mt-4 max-w-3xl text-4xl md:text-6xl">
+            Materials selected for modern jewellery houses.
+          </h1>
         </div>
       </section>
 
       <section className="bg-[var(--surface)]">
         <div className="mx-auto max-w-[1440px] px-5 py-12 md:px-10 md:py-16">
-          <div
-            data-collections-filters
-            className="mb-10 flex flex-wrap gap-2"
-          >
+          <div className="mb-10 flex flex-wrap gap-2">
             {filters.map((item) => (
               <button
                 key={item}
@@ -144,17 +101,13 @@ export function CollectionsPage() {
               </p>
             </div>
           ) : (
-            <div
-              ref={gridRef}
-              className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
-            >
+            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {filtered.map((product, index) => (
-                <div key={product.id} data-product-card>
-                  <ProductCard
-                    product={product}
-                    featured={index === 0 && material === 'All'}
-                  />
-                </div>
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  featured={index === 0 && material === 'All'}
+                />
               ))}
             </div>
           )}

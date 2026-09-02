@@ -1,8 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import gsap from 'gsap';
-import { Magnetic } from '../../motion/Magnetic';
-import { prefersReducedMotion } from '../../motion/preferences';
 
 const links = [
   { to: '/collections', label: 'Collections' },
@@ -14,8 +11,6 @@ const links = [
 export function PublicNavbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -29,35 +24,6 @@ export function PublicNavbar() {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [open]);
-
-  useLayoutEffect(() => {
-    if (!open || !menuRef.current || prefersReducedMotion()) return;
-
-    const items = itemsRef.current?.querySelectorAll('[data-menu-item]');
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        menuRef.current,
-        { clipPath: 'inset(0 0 100% 0)' },
-        { clipPath: 'inset(0 0 0% 0)', duration: 0.55, ease: 'power3.out' },
-      );
-      if (items) {
-        gsap.fromTo(
-          items,
-          { y: 28, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.55,
-            stagger: 0.07,
-            delay: 0.15,
-            ease: 'power3.out',
-          },
-        );
-      }
-    }, menuRef);
-
-    return () => ctx.revert();
   }, [open]);
 
   return (
@@ -110,11 +76,9 @@ export function PublicNavbar() {
         </nav>
 
         <div className="hidden justify-self-end md:block">
-          <Magnetic strength={10}>
-            <Link to="/contact" className="btn-ghost !px-4 !py-2.5">
-              Request an Enquiry
-            </Link>
-          </Magnetic>
+          <Link to="/contact" className="btn-ghost !px-4 !py-2.5">
+            Request an Enquiry
+          </Link>
         </div>
 
         <button
@@ -128,10 +92,7 @@ export function PublicNavbar() {
       </div>
 
       {open ? (
-        <div
-          ref={menuRef}
-          className="fixed inset-0 z-[55] flex flex-col bg-[var(--forest)] px-6 py-8 text-[var(--ivory)] md:hidden"
-        >
+        <div className="fixed inset-0 z-[55] flex flex-col bg-[var(--forest)] px-6 py-8 text-[var(--ivory)] md:hidden">
           <div className="flex items-center justify-between">
             <span className="text-[11px] tracking-[0.28em]">AUREVIA GEMS</span>
             <button
@@ -142,13 +103,12 @@ export function PublicNavbar() {
               Close
             </button>
           </div>
-          <div ref={itemsRef} className="mt-16 flex flex-col gap-6">
+          <div className="mt-16 flex flex-col gap-6">
             {links.map((link) =>
               link.hash ? (
                 <a
                   key={link.label}
                   href={link.to}
-                  data-menu-item
                   onClick={() => setOpen(false)}
                   className="font-display text-4xl"
                 >
@@ -158,7 +118,6 @@ export function PublicNavbar() {
                 <Link
                   key={link.label}
                   to={link.to}
-                  data-menu-item
                   onClick={() => setOpen(false)}
                   className="font-display text-4xl"
                 >
@@ -168,7 +127,6 @@ export function PublicNavbar() {
             )}
             <Link
               to="/contact"
-              data-menu-item
               onClick={() => setOpen(false)}
               className="btn-ghost btn-ghost-light mt-6 w-fit"
             >

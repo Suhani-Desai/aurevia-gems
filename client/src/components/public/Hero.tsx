@@ -1,91 +1,71 @@
 import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MediaImage } from '../MediaImage';
-import { Magnetic } from '../../motion/Magnetic';
-import { Line } from '../../motion/SplitLines';
 import { prefersReducedMotion } from '../../motion/preferences';
 import { siteImages } from '../../utils/productVisual';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLParagraphElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const copyRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    if (!section || prefersReducedMotion()) return;
 
-    if (prefersReducedMotion()) return;
+    const targets = [
+      eyebrowRef.current,
+      headingRef.current,
+      copyRef.current,
+      ctaRef.current,
+      imageWrapRef.current,
+    ].filter(Boolean);
+
+    const failsafe = window.setTimeout(() => {
+      gsap.set(targets, { clearProps: 'all' });
+    }, 2500);
 
     const ctx = gsap.context(() => {
       const image = imageWrapRef.current;
-      const eyebrow = section.querySelector('[data-hero-eyebrow]');
-      const lines = section.querySelectorAll('[data-line]');
 
-      gsap.set(image, {
-        clipPath: 'inset(18% 12% 18% 12%)',
-        scale: 1.14,
-      });
-      gsap.set(eyebrow, { opacity: 0, y: 18 });
-      gsap.set(lines, { yPercent: 110, opacity: 0 });
-      gsap.set([copyRef.current, ctaRef.current, scrollRef.current], {
-        opacity: 0,
-        y: 24,
-      });
-
-      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      intro
-        .to(
+      // Content is already visible in CSS. Enhance only — clearProps on finish.
+      if (image) {
+        gsap.fromTo(
           image,
+          { scale: 1.03 },
           {
-            clipPath: 'inset(0% 0% 0% 0%)',
-            scale: 1.04,
-            duration: 1.45,
+            scale: 1,
+            duration: 1.35,
+            ease: 'power2.out',
+            clearProps: 'transform',
           },
-          0,
-        )
-        .to(eyebrow, { opacity: 1, y: 0, duration: 0.7 }, 0.35)
-        .to(
-          lines,
-          {
-            yPercent: 0,
-            opacity: 1,
-            duration: 0.95,
-            stagger: 0.12,
-          },
-          0.45,
-        )
-        .to(copyRef.current, { opacity: 1, y: 0, duration: 0.7 }, 0.85)
-        .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.65 }, 1.0)
-        .to(scrollRef.current, { opacity: 1, y: 0, duration: 0.6 }, 1.15);
+        );
+      }
 
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
-        .to(image, { scale: 1.12, yPercent: 8, ease: 'none' }, 0)
-        .to(
-          contentRef.current,
-          { yPercent: -18, opacity: 0.15, ease: 'none' },
-          0,
-        )
-        .to(copyRef.current, { opacity: 0, y: -30, ease: 'none' }, 0)
-        .to(ctaRef.current, { opacity: 0, y: -20, ease: 'none' }, 0.05);
+      gsap.fromTo(
+        [eyebrowRef.current, headingRef.current, copyRef.current, ctaRef.current],
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: 'power2.out',
+          clearProps: 'all',
+          delay: 0.15,
+        },
+      );
     }, section);
 
-    return () => ctx.revert();
+    return () => {
+      window.clearTimeout(failsafe);
+      ctx.revert();
+      gsap.set(targets, { clearProps: 'all' });
+    };
   }, []);
 
   return (
@@ -93,11 +73,7 @@ export function Hero() {
       ref={sectionRef}
       className="relative min-h-[100svh] overflow-hidden bg-[var(--charcoal)] text-[var(--ivory)]"
     >
-      <div
-        ref={imageWrapRef}
-        className="absolute inset-0 will-change-transform"
-        data-hero-image
-      >
+      <div ref={imageWrapRef} className="absolute inset-0" data-hero-image>
         <MediaImage
           src={siteImages.hero}
           alt="Diamond jewellery composition for Aurevia Gems"
@@ -107,20 +83,21 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(15,40,33,0.82)] via-[rgba(15,40,33,0.42)] to-transparent" />
       </div>
 
-      <div
-        ref={contentRef}
-        className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col justify-end px-5 pb-16 pt-28 md:justify-center md:px-10 md:pb-24"
-      >
+      <div className="relative mx-auto flex min-h-[100svh] max-w-[1440px] flex-col justify-end px-5 pb-16 pt-28 md:justify-center md:px-10 md:pb-24">
         <div className="max-w-xl">
           <p
-            data-hero-eyebrow
+            ref={eyebrowRef}
             className="eyebrow text-[var(--champagne)]"
           >
             Fine Diamonds &amp; Jewellery for Global Trade
           </p>
-          <h1 className="font-display mt-5 text-5xl text-[var(--ivory)] md:text-6xl lg:text-7xl">
-            <Line>Exceptional stones.</Line>
-            <Line>Endless possibilities.</Line>
+          <h1
+            ref={headingRef}
+            className="font-display mt-5 text-5xl text-[var(--ivory)] md:text-6xl lg:text-7xl"
+          >
+            Exceptional stones.
+            <br />
+            Endless possibilities.
           </h1>
           <p
             ref={copyRef}
@@ -130,23 +107,16 @@ export function Hero() {
             and creators worldwide.
           </p>
           <div ref={ctaRef} className="mt-8 flex flex-wrap gap-3">
-            <Magnetic>
-              <Link to="/collections" className="btn-primary">
-                Explore Collection
-              </Link>
-            </Magnetic>
-            <Magnetic>
-              <Link to="/contact" className="btn-ghost btn-ghost-light">
-                Request an Enquiry
-              </Link>
-            </Magnetic>
+            <Link to="/collections" className="btn-primary">
+              Explore Collection
+            </Link>
+            <Link to="/contact" className="btn-ghost btn-ghost-light">
+              Request an Enquiry
+            </Link>
           </div>
         </div>
 
-        <div
-          ref={scrollRef}
-          className="mt-16 flex items-center gap-3 md:absolute md:bottom-10 md:left-10 md:mt-0"
-        >
+        <div className="mt-16 flex items-center gap-3 md:absolute md:bottom-10 md:left-10 md:mt-0">
           <div className="scroll-hint" aria-hidden="true" />
           <span className="text-[10px] uppercase tracking-[0.22em] text-[rgba(246,241,231,0.55)]">
             Scroll

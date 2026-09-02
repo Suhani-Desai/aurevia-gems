@@ -1,9 +1,6 @@
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import gsap from 'gsap';
 import { EnquirySection } from '../../components/public/EnquirySection';
-import { Line, SplitLines } from '../../motion/SplitLines';
-import { prefersReducedMotion } from '../../motion/preferences';
 
 export function ContactPage() {
   const [searchParams] = useSearchParams();
@@ -11,48 +8,21 @@ export function ContactPage() {
     () => searchParams.get('requirement') ?? '',
     [searchParams],
   );
-  const pageRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    if (!pageRef.current || prefersReducedMotion()) return;
-    const ctx = gsap.context(() => {
-      gsap.from('[data-contact-copy]', {
-        opacity: 0,
-        y: 18,
-        duration: 0.7,
-        delay: 0.2,
-        ease: 'power3.out',
-      });
-      gsap.from('[data-contact-form]', {
-        opacity: 0,
-        y: 24,
-        duration: 0.8,
-        delay: 0.35,
-        ease: 'power3.out',
-      });
-    }, pageRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <div ref={pageRef}>
+    <div>
       <section className="border-b border-[var(--border)]">
         <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">
           <p className="eyebrow">Contact</p>
-          <SplitLines
-            as="h1"
-            triggerOnMount
-            className="font-display mt-4 max-w-3xl text-4xl md:text-6xl"
-          >
-            <Line>Let&apos;s talk about your</Line>
-            <Line>next collection.</Line>
-          </SplitLines>
+          <h1 className="font-display mt-4 max-w-3xl text-4xl md:text-6xl">
+            Let&apos;s talk about your next collection.
+          </h1>
         </div>
       </section>
 
       <section className="bg-[var(--surface)]">
         <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-14 md:grid-cols-[0.9fr_1.1fr] md:gap-16 md:px-10 md:py-20">
-          <div data-contact-copy>
+          <div>
             <p className="text-sm leading-7 text-[var(--muted)]">
               Share your sourcing requirements and our trade team will respond
               with suitability, availability, and next steps for your business.
@@ -90,7 +60,7 @@ export function ContactPage() {
               </div>
             </div>
           </div>
-          <div data-contact-form>
+          <div>
             <EnquirySection defaultRequirement={requirement} />
           </div>
         </div>

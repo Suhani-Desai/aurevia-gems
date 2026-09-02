@@ -28,7 +28,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
             src={getProductImage(product)}
             alt={product.name}
             className="h-full w-full"
-            imgClassName="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+            imgClassName="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.03]"
           />
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition duration-400 group-hover:opacity-100 max-md:hidden">
             <span className="flex h-16 w-16 items-center justify-center rounded-full border border-[var(--ivory)]/70 bg-[rgba(20,52,43,0.45)] text-[10px] uppercase tracking-[0.16em] text-[var(--ivory)] backdrop-blur-sm">
@@ -36,7 +36,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
             </span>
           </div>
         </div>
-        <div className="space-y-3 p-5 transition duration-500 group-hover:-translate-y-0.5 md:p-6">
+        <div className="space-y-3 p-5 md:p-6">
           <p className="text-[11px] uppercase tracking-[0.16em] text-[var(--champagne)]">
             {product.category.name}
           </p>

@@ -172,7 +172,7 @@ a {
 }
 
 .media-zoom:hover img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 @keyframes riseIn {
@@ -192,6 +192,16 @@ a {
 
 .rise-in-delay {
   animation: riseIn 800ms ease 120ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .rise-in-delay,
+  .media-zoom img {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
 }
 
 .scroll-hint {

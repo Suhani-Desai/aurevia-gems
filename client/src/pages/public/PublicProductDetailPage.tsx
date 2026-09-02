@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { MediaImage } from '../../components/MediaImage';
-import { ImageReveal } from '../../motion/ImageReveal';
-import { Magnetic } from '../../motion/Magnetic';
 import { ApiRequestError } from '../../services/api';
 import * as publicCatalogService from '../../services/publicCatalogService';
 import type { Product } from '../../types';
@@ -75,13 +73,11 @@ export function PublicProductDetailPage() {
   return (
     <section className="border-b border-[var(--border)]">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-12 md:grid-cols-2 md:gap-16 md:px-10 md:py-20">
-        <ImageReveal style="zoom-settle">
-          <MediaImage
-            src={getProductImage(product)}
-            alt={product.name}
-            className="aspect-[4/5] w-full"
-          />
-        </ImageReveal>
+        <MediaImage
+          src={getProductImage(product)}
+          alt={product.name}
+          className="aspect-[4/5] w-full"
+        />
 
         <div className="flex flex-col justify-center">
           <p className="eyebrow">{product.category.name}</p>
@@ -108,16 +104,14 @@ export function PublicProductDetailPage() {
           </dl>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Magnetic>
-              <Link
-                to={`/contact?requirement=${encodeURIComponent(
-                  `${product.name} (${product.sku})`,
-                )}`}
-                className="btn-primary"
-              >
-                Request an Enquiry
-              </Link>
-            </Magnetic>
+            <Link
+              to={`/contact?requirement=${encodeURIComponent(
+                `${product.name} (${product.sku})`,
+              )}`}
+              className="btn-primary"
+            >
+              Request an Enquiry
+            </Link>
             <Link to="/collections" className="btn-ghost">
               Back to Collection
             </Link>
